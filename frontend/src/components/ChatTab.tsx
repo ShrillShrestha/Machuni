@@ -28,7 +28,7 @@ const ChatTab: React.FC<ChatTabProps> = ({ preferences, onToggleSidebar }) => {
   const [inputText, setInputText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const { chatHistory, addChatResponse, clearChatHistory } = useChatContext();
+  // const { chatHistory, addChatResponse, clearChatHistory } = useChatContext();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const hasUserMessages = messages.some((m) => m.sender === "user");
@@ -57,11 +57,11 @@ const ChatTab: React.FC<ChatTabProps> = ({ preferences, onToggleSidebar }) => {
     try {
       // Prepare the chat request payload
       const chatRequest: ChatRequest = {
-        status: preferences.visaStatus || "student",
-        interests: preferences.interests || ["books"],
-        country: preferences.country || "United States",
-        state: preferences.state || "Texas",
-        language_preferance: preferences.language_preference || "English",
+        status: preferences.visaStatus,
+        interests: preferences.interests,
+        country: preferences.country,
+        state: preferences.state,
+        language_preferance: preferences.language_preference,
         question: text.trim(),
       };
 
@@ -122,58 +122,58 @@ const ChatTab: React.FC<ChatTabProps> = ({ preferences, onToggleSidebar }) => {
     sendMessage(question.text);
   };
 
-  const clearAllChat = () => {
-    setMessages([
-      {
-        id: "1",
-        text: "Hello! I'm your immigration assistant. I can help you with visa questions, legal processes, and finding the right resources. How can I assist you today?",
-        sender: "bot",
-        timestamp: new Date(),
-      },
-    ]);
-    clearChatHistory();
-  };
+  // const clearAllChat = () => {
+  //   setMessages([
+  //     {
+  //       id: "1",
+  //       text: "Hello! I'm your immigration assistant. I can help you with visa questions, legal processes, and finding the right resources. How can I assist you today?",
+  //       sender: "bot",
+  //       timestamp: new Date(),
+  //     },
+  //   ]);
+  //   clearChatHistory();
+  // };
 
-  const getChatHistoryDisplay = () => {
-    if (chatHistory.length === 0) return null;
+  // const getChatHistoryDisplay = () => {
+  //   if (chatHistory.length === 0) return null;
 
-    return (
-      <div className="mt-6 p-4 bg-white/60 backdrop-blur-sm rounded-2xl border border-gray-200">
-        <div className="flex items-center justify-between mb-3">
-          <h3 className="text-lg font-semibold text-gray-800">
-            Previous Responses
-          </h3>
-          <div className="flex gap-2">
-            <button
-              onClick={clearChatHistory}
-              className="px-3 py-1 text-sm bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors"
-            >
-              Clear History
-            </button>
-            <button
-              onClick={clearAllChat}
-              className="px-3 py-1 text-sm bg-orange-100 text-orange-600 rounded-lg hover:bg-orange-200 transition-colors"
-            >
-              Clear All
-            </button>
-          </div>
-        </div>
-        <div className="space-y-3">
-          {chatHistory.map((response, index) => (
-            <div
-              key={index}
-              className="p-3 bg-blue-50/50 rounded-xl border border-blue-200"
-            >
-              <p className="text-sm text-gray-600 mb-1">
-                Response #{index + 1}
-              </p>
-              <p className="text-gray-800">{response.answer}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  };
+  //   return (
+  //     <div className="mt-6 p-4 bg-white/60 backdrop-blur-sm rounded-2xl border border-gray-200">
+  //       <div className="flex items-center justify-between mb-3">
+  //         <h3 className="text-lg font-semibold text-gray-800">
+  //           Previous Responses
+  //         </h3>
+  //         <div className="flex gap-2">
+  //           <button
+  //             onClick={clearChatHistory}
+  //             className="px-3 py-1 text-sm bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors"
+  //           >
+  //             Clear History
+  //           </button>
+  //           <button
+  //             onClick={clearAllChat}
+  //             className="px-3 py-1 text-sm bg-orange-100 text-orange-600 rounded-lg hover:bg-orange-200 transition-colors"
+  //           >
+  //             Clear All
+  //           </button>
+  //         </div>
+  //       </div>
+  //       <div className="space-y-3">
+  //         {chatHistory.map((response, index) => (
+  //           <div
+  //             key={index}
+  //             className="p-3 bg-blue-50/50 rounded-xl border border-blue-200"
+  //           >
+  //             <p className="text-sm text-gray-600 mb-1">
+  //               Response #{index + 1}
+  //             </p>
+  //             <p className="text-gray-800">{response.answer}</p>
+  //           </div>
+  //         ))}
+  //       </div>
+  //     </div>
+  //   );
+  // };
 
   return (
     <div className="flex flex-col h-screen bg-blue-50/40 backdrop-blur-2xl shadow-xl">
@@ -243,7 +243,7 @@ const ChatTab: React.FC<ChatTabProps> = ({ preferences, onToggleSidebar }) => {
             </div>
 
             {/* Chat History Display in Empty State */}
-            {getChatHistoryDisplay()}
+            {/* {getChatHistoryDisplay()} */}
           </div>
         </div>
       ) : (
@@ -285,7 +285,7 @@ const ChatTab: React.FC<ChatTabProps> = ({ preferences, onToggleSidebar }) => {
                       )}
                     </div>
                     <div
-                      className={`px-4 py-3 rounded-2xl shadow-sm ${
+                      className={`px-4 py-3 rounded-2xl shadow-sm whitespace-pre-line ${
                         message.sender === "user"
                           ? "bg-violet-600 text-white rounded-br-md"
                           : "bg-white/70 backdrop-blur-sm text-gray-900 border border-gray-200 rounded-bl-md"
@@ -337,7 +337,7 @@ const ChatTab: React.FC<ChatTabProps> = ({ preferences, onToggleSidebar }) => {
               )}
 
               {/* Chat History Display */}
-              {getChatHistoryDisplay()}
+              {/* {getChatHistoryDisplay()} */}
 
               <div ref={messagesEndRef} />
             </div>
