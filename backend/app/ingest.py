@@ -34,7 +34,7 @@ class OllamaEmbeddingFunction:
             )
             response.raise_for_status()
             data = response.json()
-            embeddings.append(data["embedding"])
+            embeddings.append(data["embeddings"])
         return embeddings
     
 
@@ -113,7 +113,7 @@ def process_pdf(pdf_path):
     for i, chunk in enumerate(chunks):
         collection.add(
             documents=[chunk],
-            embeddings=[embeddings[i]],
+            embeddings=[embeddings[i]][0],
             metadatas=[{
                 "source": pdf_path.name,
                 "language": detect_lang(chunk),
