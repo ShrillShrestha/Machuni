@@ -21,7 +21,7 @@ const sampleEvents: Event[] = [
     title: "Immigration Workshop: Know Your Rights",
     date: "2024-01-15",
     time: "2:00 PM",
-    location: "Community Center Downtown",
+    location: "Community Center, Downtown Austin, Texas",
     description:
       "Free workshop covering basic immigration rights and resources available to new immigrants.",
     category: "Legal Services",
@@ -33,7 +33,7 @@ const sampleEvents: Event[] = [
     title: "Job Fair for International Professionals",
     date: "2024-01-18",
     time: "10:00 AM",
-    location: "Convention Center",
+    location: "Convention Center, Houston, Texas",
     description:
       "Connect with employers looking for international talent. Bring your resume and work authorization documents.",
     category: "Job Search",
@@ -45,7 +45,7 @@ const sampleEvents: Event[] = [
     title: "English Conversation Club",
     date: "2024-01-12",
     time: "6:30 PM",
-    location: "Public Library Main Branch",
+    location: "Public Library, Dallas, Texas",
     description:
       "Practice English conversation skills in a friendly, supportive environment. All levels welcome.",
     category: "Language Learning",
@@ -57,7 +57,7 @@ const sampleEvents: Event[] = [
     title: "Cultural Festival: Celebrating Diversity",
     date: "2024-01-20",
     time: "12:00 PM",
-    location: "City Park",
+    location: "Central Park, San Antonio, Texas",
     description:
       "Join us for a celebration of cultures with food, music, and dance from around the world.",
     category: "Cultural Events",
@@ -69,7 +69,7 @@ const sampleEvents: Event[] = [
     title: "Housing Workshop for New Residents",
     date: "2024-01-22",
     time: "1:00 PM",
-    location: "Housing Authority Office",
+    location: "Housing Authority Office, Fort Worth, Texas",
     description:
       "Learn about tenant rights, finding affordable housing, and understanding lease agreements.",
     category: "Housing",
@@ -81,7 +81,7 @@ const sampleEvents: Event[] = [
     title: "Healthcare Navigation Seminar",
     date: "2024-01-25",
     time: "3:00 PM",
-    location: "Health Center Auditorium",
+    location: "Health Center Auditorium, El Paso, Texas",
     description:
       "Understanding the healthcare system, insurance options, and accessing medical services.",
     category: "Healthcare",
@@ -89,6 +89,153 @@ const sampleEvents: Event[] = [
       "https://images.pexels.com/photos/356040/pexels-photo-356040.jpeg?auto=compress&cs=tinysrgb&w=400",
   },
 ];
+
+// Generate state-specific events based on user's selected state
+const generateStateSpecificEvents = (state: string): Event[] => {
+  if (!state) return [];
+
+  const stateEvents: Event[] = [];
+  const cities = {
+    Texas: [
+      "Austin",
+      "Houston",
+      "Dallas",
+      "San Antonio",
+      "Fort Worth",
+      "El Paso",
+      "Arlington",
+      "Corpus Christi",
+    ],
+    California: [
+      "Los Angeles",
+      "San Francisco",
+      "San Diego",
+      "Sacramento",
+      "Oakland",
+      "Fresno",
+      "Long Beach",
+      "Bakersfield",
+    ],
+    "New York": [
+      "New York City",
+      "Buffalo",
+      "Rochester",
+      "Yonkers",
+      "Syracuse",
+      "Albany",
+      "New Rochelle",
+      "Mount Vernon",
+    ],
+    Florida: [
+      "Miami",
+      "Orlando",
+      "Tampa",
+      "Jacksonville",
+      "Fort Lauderdale",
+      "Tallahassee",
+      "Gainesville",
+      "Pensacola",
+    ],
+    Illinois: [
+      "Chicago",
+      "Springfield",
+      "Peoria",
+      "Rockford",
+      "Naperville",
+      "Aurora",
+      "Evanston",
+      "Decatur",
+    ],
+  };
+
+  const stateCities = cities[state as keyof typeof cities] || [
+    "Downtown",
+    "City Center",
+    "Main Street",
+  ];
+
+  const eventTemplates = [
+    {
+      title: "Immigration Workshop: Know Your Rights",
+      category: "Legal Services",
+      description:
+        "Free workshop covering basic immigration rights and resources available to new immigrants.",
+      image:
+        "https://images.pexels.com/photos/8369648/pexels-photo-8369648.jpeg?auto=compress&cs=tinysrgb&w=400",
+    },
+    {
+      title: "Job Fair for International Professionals",
+      category: "Job Search",
+      description:
+        "Connect with employers looking for international talent. Bring your resume and work authorization documents.",
+      image:
+        "https://images.pexels.com/photos/1181396/pexels-photo-1181396.jpeg?auto=compress&cs=tinysrgb&w=400",
+    },
+    {
+      title: "English Conversation Club",
+      category: "Language Learning",
+      description:
+        "Practice English conversation skills in a friendly, supportive environment. All levels welcome.",
+      image:
+        "https://images.pexels.com/photos/159844/books-students-library-university-159844.jpeg?auto=compress&cs=tinysrgb&w=400",
+    },
+    {
+      title: "Cultural Festival: Celebrating Diversity",
+      category: "Cultural Events",
+      description:
+        "Join us for a celebration of cultures with food, music, and dance from around the world.",
+      image:
+        "https://images.pexels.com/photos/1190297/pexels-photo-1190297.jpeg?auto=compress&cs=tinysrgb&w=400",
+    },
+    {
+      title: "Housing Workshop for New Residents",
+      category: "Housing",
+      description:
+        "Learn about tenant rights, finding affordable housing, and understanding lease agreements.",
+      image:
+        "https://images.pexels.com/photos/1370704/pexels-photo-1370704.jpeg?auto=compress&cs=tinysrgb&w=400",
+    },
+    {
+      title: "Healthcare Navigation Seminar",
+      category: "Healthcare",
+      description:
+        "Understanding the healthcare system, insurance options, and accessing medical services.",
+      image:
+        "https://images.pexels.com/photos/356040/pexels-photo-356040.jpeg?auto=compress&cs=tinysrgb&w=400",
+    },
+  ];
+
+  eventTemplates.forEach((template, index) => {
+    const city = stateCities[index % stateCities.length];
+    const date = new Date();
+    date.setDate(date.getDate() + (index + 1) * 3);
+
+    stateEvents.push({
+      id: `state-${index + 1}`,
+      title: template.title,
+      date: date.toISOString().split("T")[0],
+      time: `${(index % 3) + 10}:00 ${index % 2 === 0 ? "AM" : "PM"}`,
+      location: `${
+        template.title.includes("Workshop")
+          ? "Community Center"
+          : template.title.includes("Fair")
+          ? "Convention Center"
+          : template.title.includes("Club")
+          ? "Public Library"
+          : template.title.includes("Festival")
+          ? "Central Park"
+          : template.title.includes("Housing")
+          ? "Housing Authority Office"
+          : "Health Center Auditorium"
+      }, ${city}, ${state}`,
+      description: template.description,
+      category: template.category,
+      image: template.image,
+    });
+  });
+
+  return stateEvents;
+};
 
 const EventsTab: React.FC<EventsTabProps> = ({
   preferences,
@@ -99,14 +246,27 @@ const EventsTab: React.FC<EventsTabProps> = ({
   const [selectedCategory, setSelectedCategory] = useState<string>("");
 
   useEffect(() => {
-    // Simulate fetching events based on user preferences
-    const userEvents = sampleEvents.filter((event) => {
-      if (
-        preferences.state &&
-        !event.location.toLowerCase().includes(preferences.state.toLowerCase())
-      ) {
-        return false;
+    // Generate state-specific events and filter based on user preferences
+    let availableEvents = [...sampleEvents];
+
+    // If user has selected a state, generate state-specific events
+    if (preferences.state) {
+      const stateEvents = generateStateSpecificEvents(preferences.state);
+      availableEvents = [...sampleEvents, ...stateEvents];
+    }
+
+    // Filter events based on user preferences
+    const userEvents = availableEvents.filter((event) => {
+      // Filter by state if selected
+      if (preferences.state) {
+        const eventLocation = event.location.toLowerCase();
+        const userState = preferences.state.toLowerCase();
+        if (!eventLocation.includes(userState)) {
+          return false;
+        }
       }
+
+      // Filter by interests if selected
       if (preferences.interests.length > 0) {
         return preferences.interests.some(
           (interest) =>
@@ -115,10 +275,11 @@ const EventsTab: React.FC<EventsTabProps> = ({
             event.description.toLowerCase().includes(interest.toLowerCase())
         );
       }
+
       return true;
     });
 
-    setEvents(userEvents.length > 0 ? userEvents : sampleEvents);
+    setEvents(userEvents.length > 0 ? userEvents : availableEvents);
   }, [preferences]);
 
   useEffect(() => {
@@ -143,22 +304,7 @@ const EventsTab: React.FC<EventsTabProps> = ({
     <div className="h-screen bg-gradient-to-b from-white to-gray-50/30 overflow-y-auto">
       {/* Mobile Header */}
       <div className="lg:hidden bg-white/80 backdrop-blur-sm border-b border-gray-100 p-4 sticky top-0 z-10">
-        <div className="flex items-center gap-3">
-          <button
-            onClick={onToggleSidebar}
-            className="p-2 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-100"
-          >
-            <Menu className="w-5 h-5" />
-          </button>
-          <div className="flex items-center gap-2">
-            <div className="p-1.5 bg-blue-600/40 rounded-lg">
-              <Calendar className="w-4 h-4 text-white" />
-            </div>
-            <h1 className="text-lg font-semibold text-gray-900">
-              Local Events
-            </h1>
-          </div>
-        </div>
+        <h1 className="text-2xl font-semibold text-blue-600">Local Events</h1>
       </div>
 
       <div className="p-4 lg:p-6">
@@ -169,6 +315,12 @@ const EventsTab: React.FC<EventsTabProps> = ({
             </h1>
             <p className="text-gray-600">
               Discover events tailored to your interests and immigration journey
+              {!preferences.state && (
+                <span className="block mt-2 text-blue-600 font-medium">
+                  💡 Select your state in the sidebar to see events specific to
+                  your area
+                </span>
+              )}
             </p>
           </div>
 

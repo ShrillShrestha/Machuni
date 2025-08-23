@@ -44,3 +44,24 @@ export interface ChatRequest {
 export interface ChatResponse {
   answer: string;
 }
+
+export interface FAQRequest {
+  status: string;
+  language_preferance: string;
+}
+
+export interface FAQItem {
+  id: string;
+  question: string;
+  answer: string;
+  category?: string;
+}
+
+export interface FAQResponse {
+  faqs: FAQItem[];
+}
+
+export interface VisaStatusOption {
+  label: string;
+  value: string;
+}

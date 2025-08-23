@@ -180,24 +180,6 @@ const ChatTab: React.FC<ChatTabProps> = ({ preferences, onToggleSidebar }) => {
       {/* Background Gradient */}
       <div className="absolute inset-0 bg-gradient-to-t from-customBlue to-white rounded-lg shadow-xl -z-10"></div>
 
-      {/* Header (mobile only) */}
-      <div className="lg:hidden bg-white/70 backdrop-blur-md border-b border-gray-200 p-4 sticky top-0 z-10 flex items-center gap-3">
-        <button
-          onClick={onToggleSidebar}
-          className="p-2 text-gray-600 hover:text-gray-900 rounded-lg hover:bg-gray-100"
-        >
-          <Menu className="w-5 h-5" />
-        </button>
-        <div className="flex items-center gap-2">
-          <div className="p-1.5 bg-blue-600 rounded-lg">
-            <Bot className="w-4 h-4 text-white" />
-          </div>
-          <h1 className="text-lg font-semibold text-gray-900">
-            Immigration AI
-          </h1>
-        </div>
-      </div>
-
       {/* === EMPTY STATE === */}
       {!hasUserMessages ? (
         <div className="flex-1 flex items-center justify-center p-6">
