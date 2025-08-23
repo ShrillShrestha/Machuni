@@ -292,7 +292,7 @@ const ChatTab: React.FC<ChatTabProps> = ({ preferences, onToggleSidebar }) => {
                     <div
                       className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center ${
                         message.sender === "user"
-                          ? "bg-blue-600"
+                          ? "bg-violet-600"
                           : "bg-white border border-gray-300"
                       }`}
                     >
@@ -305,7 +305,7 @@ const ChatTab: React.FC<ChatTabProps> = ({ preferences, onToggleSidebar }) => {
                     <div
                       className={`px-4 py-3 rounded-2xl shadow-sm ${
                         message.sender === "user"
-                          ? "bg-blue-600 text-white rounded-br-md"
+                          ? "bg-violet-600 text-white rounded-br-md"
                           : "bg-white/70 backdrop-blur-sm text-gray-900 border border-gray-200 rounded-bl-md"
                       }`}
                     >

@@ -102,8 +102,8 @@ const EventsTab: React.FC<EventsTabProps> = ({
     // Simulate fetching events based on user preferences
     const userEvents = sampleEvents.filter((event) => {
       if (
-        preferences.city &&
-        !event.location.toLowerCase().includes(preferences.city.toLowerCase())
+        preferences.state &&
+        !event.location.toLowerCase().includes(preferences.state.toLowerCase())
       ) {
         return false;
       }
@@ -165,7 +165,7 @@ const EventsTab: React.FC<EventsTabProps> = ({
         <div className="max-w-6xl mx-auto">
           <div className="mb-8">
             <h1 className="hidden lg:block text-3xl font-bold text-gray-900 mb-2">
-              Local Events {preferences.city && `in ${preferences.city}`}
+              Local Events {preferences.state && `in ${preferences.state}`}
             </h1>
             <p className="text-gray-600">
               Discover events tailored to your interests and immigration journey

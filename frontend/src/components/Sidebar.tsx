@@ -13,8 +13,8 @@ import { UserPreferences } from "../types";
 interface SidebarProps {
   preferences: UserPreferences;
   onPreferencesChange: (preferences: UserPreferences) => void;
-  currentPage: "chat" | "events";
-  onPageChange: (page: "chat" | "events") => void;
+  currentPage: "chat" | "events" | "community";
+  onPageChange: (page: "chat" | "events" | "community") => void;
   isOpen: boolean;
   onToggle: () => void;
 }
@@ -212,7 +212,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     updatePreference("interests", updatedInterests);
   };
 
-  const handlePageChange = (page: "chat" | "events") => {
+  const handlePageChange = (page: "chat" | "events" | "community") => {
     onPageChange(page);
     if (window.innerWidth < 1024) {
       onToggle();
@@ -257,7 +257,7 @@ const Sidebar: React.FC<SidebarProps> = ({
               className={`w-full flex items-center gap-3 p-3 rounded-xl text-left transition-all duration-200 ${
                 currentPage === "chat"
                   ? "bg-customBlue text-white shadow-lg"
-                  : "text-gray-700 hover:bg-customBlue hover:text-white"
+                  : "text-gray-700 hover:bg-lighterCustomBlue hover:text-white"
               }`}
             >
               <MessageSquare className="w-5 h-5" />
@@ -268,11 +268,22 @@ const Sidebar: React.FC<SidebarProps> = ({
               className={`w-full flex items-center gap-3 p-3 rounded-xl text-left transition-all duration-200 ${
                 currentPage === "events"
                   ? "bg-customBlue text-white shadow-lg"
-                  : "text-gray-700 hover:bg-customBlue hover:text-white"
+                  : "text-gray-700 hover:bg-lighterCustomBlue hover:text-white"
               }`}
             >
               <Calendar className="w-5 h-5" />
               <span className="font-medium">Local Events</span>
+            </button>
+            <button
+              onClick={() => handlePageChange("community")}
+              className={`w-full flex items-center gap-3 p-3 rounded-xl text-left transition-all duration-200 ${
+                currentPage === "community"
+                  ? "bg-customBlue text-white shadow-lg"
+                  : "text-gray-700 hover:bg-lighterCustomBlue hover:text-white"
+              }`}
+            >
+              <MessageSquare className="w-5 h-5" />
+              <span className="font-medium">Community Q&A</span>
             </button>
           </div>
         </div>

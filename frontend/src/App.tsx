@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import Sidebar from "./components/Sidebar";
 import ChatTab from "./components/ChatTab";
 import EventsTab from "./components/EventsTab";
+import CommunityQnATab from "./components/CommunityQnATab";
 import { UserPreferences } from "./types";
 import { ChatProvider } from "./context/ChatContext";
 
 function App() {
-  const [currentPage, setCurrentPage] = useState<"chat" | "events">("chat");
+  const [currentPage, setCurrentPage] = useState<"chat" | "events" | "community">("chat");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [userPreferences, setUserPreferences] = useState<UserPreferences>({
     visaStatus: "",
@@ -49,7 +50,9 @@ function App() {
 
         {/* Main content */}
         <main className="flex-1 flex flex-col w-full pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
-          {currentPage === "chat" ? (
+          {currentPage === "community" ? (
+            <CommunityQnATab />
+          ) : currentPage === "chat" ? (
             <ChatTab
               preferences={userPreferences}
               onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
