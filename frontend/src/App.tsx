@@ -27,10 +27,24 @@ function App() {
       className="
         relative flex
         min-h-screen min-h-[100dvh] min-h-[100svh]
-        bg-gradient-to-br from-blue-50 to-indigo-100
+        overflow-hidden
       "
       style={{ WebkitOverflowScrolling: "touch" }}
     >
+      {/* Animated Background */}
+      <div className="fixed inset-0 -z-10">
+        {/* Base gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 animate-gradient-shift"></div>
+        
+        {/* Floating orbs */}
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-200/30 rounded-full blur-3xl animate-float-slow"></div>
+        <div className="absolute top-3/4 right-1/4 w-96 h-96 bg-indigo-200/20 rounded-full blur-3xl animate-float-slower"></div>
+        <div className="absolute top-1/2 left-3/4 w-48 h-48 bg-purple-200/25 rounded-full blur-3xl animate-float-fast"></div>
+        <div className="absolute bottom-1/4 left-1/2 w-80 h-80 bg-cyan-200/15 rounded-full blur-3xl animate-float-medium"></div>
+        
+        {/* Subtle mesh overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-white/10 via-transparent to-white/5"></div>
+      </div>
       {/* Sidebar (persistent on desktop) */}
       <div className="hidden lg:block">
         <Sidebar
