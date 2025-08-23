@@ -1,13 +1,17 @@
-import React, { useState, useEffect } from "react";
-import Sidebar from "./components/Sidebar";
+import React, { useState } from "react";
 import ChatTab from "./components/ChatTab";
 import EventsTab from "./components/EventsTab";
 import CommunityQnATab from "./components/CommunityQnATab";
 import { UserPreferences } from "./types";
 import { ChatProvider } from "./context/ChatContext";
+import FAQsTab from "./components/FAQsTab";
+import Sidebar from "./components/Sidebar";
+import { Menu } from "lucide-react";
 
 function App() {
-  const [currentPage, setCurrentPage] = useState<"chat" | "events" | "community">("chat");
+  const [currentPage, setCurrentPage] = useState<
+    "chat" | "events" | "community" | "faqs"
+  >("chat");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [userPreferences, setUserPreferences] = useState<UserPreferences>({
     visaStatus: "",
@@ -17,14 +21,56 @@ function App() {
     interests: [],
   });
 
-  // Prevent background scroll when the mobile sidebar is open
-  useEffect(() => {
-    const original = document.body.style.overflow;
-    if (isSidebarOpen) document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = original;
-    };
-  }, [isSidebarOpen]);
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const closeSidebar = () => {
+    setIsSidebarOpen(false);
+  };
+
+  const handlePreferencesChange = (newPreferences: UserPreferences) => {
+    setUserPreferences(newPreferences);
+  };
+
+  const handlePageChange = (page: "chat" | "events" | "community" | "faqs") => {
+    setCurrentPage(page);
+  };
+
+  const renderCurrentTab = () => {
+    switch (currentPage) {
+      case "chat":
+        return (
+          <ChatTab
+            preferences={userPreferences}
+            onToggleSidebar={toggleSidebar}
+          />
+        );
+      case "events":
+        return (
+          <EventsTab
+            preferences={userPreferences}
+            onToggleSidebar={toggleSidebar}
+          />
+        );
+      case "community":
+        return <CommunityQnATab />;
+      case "faqs":
+        return (
+          <FAQsTab
+            preferences={userPreferences}
+            onToggleSidebar={toggleSidebar}
+          />
+        );
+      default:
+        return (
+          <ChatTab
+            preferences={userPreferences}
+            onToggleSidebar={toggleSidebar}
+          />
+        );
+    }
+  };
 
   return (
     <ChatProvider>
@@ -42,27 +88,23 @@ function App() {
             preferences={userPreferences}
             onPreferencesChange={setUserPreferences}
             currentPage={currentPage}
-            onPageChange={setCurrentPage}
+            onPageChange={handlePageChange}
             isOpen={true}
+            onClose={closeSidebar}
             onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
           />
         </div>
 
-        {/* Main content */}
         <main className="flex-1 flex flex-col w-full pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
-          {currentPage === "community" ? (
-            <CommunityQnATab />
-          ) : currentPage === "chat" ? (
-            <ChatTab
-              preferences={userPreferences}
-              onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
-            />
-          ) : (
-            <EventsTab
-              preferences={userPreferences}
-              onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
-            />
-          )}
+          <div className="lg:hidden p-3">
+            <button
+              onClick={toggleSidebar}
+              className="p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none"
+            >
+              <Menu className="w-6 h-6" />
+            </button>
+          </div>
+          {renderCurrentTab()}
         </main>
 
         {/* Mobile Sidebar Overlay (covers entire screen on iOS) */}
@@ -87,9 +129,10 @@ function App() {
                 preferences={userPreferences}
                 onPreferencesChange={setUserPreferences}
                 currentPage={currentPage}
-                onPageChange={setCurrentPage}
+                onPageChange={handlePageChange}
                 isOpen={true}
-                onToggle={() => setIsSidebarOpen(false)}
+                onClose={closeSidebar}
+                onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
               />
             </div>
           </div>
