@@ -10,7 +10,6 @@
             "address": "10908 Courthouse Rd, Fredericksburg, VA 22408",
             "city": "Washington",
             "state": "DC",
-            "coordinates": {"latitude": 38.3032, "longitude": -77.4605},
             "is_virtual": false
         },
         "category": "cultural",
@@ -37,7 +36,6 @@
             "address": "1133 15th St NW, Washington, DC 20005",
             "city": "Washington",
             "state": "DC",
-            "coordinates": {"latitude": 38.9048, "longitude": -77.0347},
             "is_virtual": false
         },
         "category": "professional",
@@ -64,7 +62,6 @@
             "address": "3500 Water St NW, Washington, DC 20007",
             "city": "Washington",
             "state": "DC",
-            "coordinates": {"latitude": 38.9051, "longitude": -77.0640},
             "is_virtual": false
         },
         "category": "outdoor",
@@ -91,7 +88,6 @@
             "address": "National Mall, Washington, DC 20560",
             "city": "Washington",
             "state": "DC",
-            "coordinates": {"latitude": 38.8913, "longitude": -77.0261},
             "is_virtual": false
         },
         "category": "cultural",
@@ -118,7 +114,6 @@
             "address": "1501 Maine Ave SW, Washington, DC 20024",
             "city": "Washington",
             "state": "DC",
-            "coordinates": {"latitude": 38.8856, "longitude": -77.0394},
             "is_virtual": false
         },
         "category": "volunteer",
@@ -145,7 +140,6 @@
             "address": "900 E 11th St, Austin, TX 78702",
             "city": "Austin",
             "state": "TX",
-            "coordinates": {"latitude": 30.2697, "longitude": -97.7295},
             "is_virtual": false
         },
         "category": "cultural",
@@ -172,7 +166,6 @@
             "address": "1601 E NASA Pkwy, Houston, TX 77058",
             "city": "Houston",
             "state": "TX",
-            "coordinates": {"latitude": 29.5518, "longitude": -95.0978},
             "is_virtual": false
         },
         "category": "educational",
@@ -199,7 +192,6 @@
             "address": "1 AT&T Way, Arlington, TX 76011",
             "city": "Arlington",
             "state": "TX",
-            "coordinates": {"latitude": 32.7473, "longitude": -97.0945},
             "is_virtual": false
         },
         "category": "sports",
@@ -226,7 +218,6 @@
             "address": "701 Brazos St, Austin, TX 78701",
             "city": "Austin",
             "state": "TX",
-            "coordinates": {"latitude": 30.2700, "longitude": -97.7414},
             "is_virtual": false
         },
         "category": "professional",
@@ -253,7 +244,6 @@
             "address": "3921 Martin Luther King Jr Blvd, Dallas, TX 75210",
             "city": "Dallas",
             "state": "TX",
-            "coordinates": {"latitude": 32.7767, "longitude": -96.7618},
             "is_virtual": false
         },
         "category": "cultural",
@@ -280,7 +270,6 @@
             "address": "306 Congress St, Boston, MA 02210",
             "city": "Boston",
             "state": "MA",
-            "coordinates": {"latitude": 42.3522, "longitude": -71.0522},
             "is_virtual": false
         },
         "category": "cultural",
@@ -307,7 +296,7 @@
             "address": "77 Massachusetts Ave, Cambridge, MA 02139",
             "city": "Cambridge",
             "state": "MA",
-            "coordinates": {"latitude": 42.3601, "longitude": -71.0942},
+
             "is_virtual": false
         },
         "category": "educational",
@@ -334,7 +323,6 @@
             "address": "100 Hanover St, Boston, MA 02108",
             "city": "Boston",
             "state": "MA",
-            "coordinates": {"latitude": 42.3647, "longitude": -71.0542},
             "is_virtual": false
         },
         "category": "cultural",
@@ -361,7 +349,6 @@
             "address": "4 Jersey St, Boston, MA 02215",
             "city": "Boston",
             "state": "MA",
-            "coordinates": {"latitude": 42.3467, "longitude": -71.0972},
             "is_virtual": false
         },
         "category": "sports",
@@ -388,7 +375,6 @@
             "address": "1 Kendall Sq, Cambridge, MA 02139",
             "city": "Cambridge",
             "state": "MA",
-            "coordinates": {"latitude": 42.3625, "longitude": -71.0856},
             "is_virtual": false
         },
         "category": "professional",
@@ -415,7 +401,6 @@
             "address": "209 Edgewood Ave SE, Atlanta, GA 30303",
             "city": "Atlanta",
             "state": "GA",
-            "coordinates": {"latitude": 33.7537, "longitude": -84.3720},
             "is_virtual": false
         },
         "category": "cultural",
@@ -442,7 +427,6 @@
             "address": "450 Auburn Ave NE, Atlanta, GA 30312",
             "city": "Atlanta",
             "state": "GA",
-            "coordinates": {"latitude": 33.7566, "longitude": -84.3724},
             "is_virtual": false
         },
         "category": "cultural",
@@ -469,7 +453,6 @@
             "address": "1 State Farm Dr, Atlanta, GA 30303",
             "city": "Atlanta",
             "state": "GA",
-            "coordinates": {"latitude": 33.7573, "longitude": -84.3963},
             "is_virtual": false
         },
         "category": "sports",
@@ -496,7 +479,6 @@
             "address": "190 Marietta St NW, Atlanta, GA 30303",
             "city": "Atlanta",
             "state": "GA",
-            "coordinates": {"latitude": 33.7580, "longitude": -84.3963},
             "is_virtual": false
         },
         "category": "educational",
@@ -523,7 +505,6 @@
             "address": "590 N Highland Ave NE, Atlanta, GA 30307",
             "city": "Atlanta",
             "state": "GA",
-            "coordinates": {"latitude": 33.7701, "longitude": -84.3534},
             "is_virtual": false
         },
         "category": "outdoor",
@@ -549,7 +530,6 @@
             "address": "Online",
             "city": "Virtual",
             "state": "Online",
-            "coordinates": {"latitude": 0, "longitude": 0},
             "is_virtual": true,
             "virtual_link": "https://zoom.us/j/nepali-cultural-exchange"
         },
@@ -576,7 +556,6 @@
             "address": "Online",
             "city": "Virtual",
             "state": "Online",
-            "coordinates": {"latitude": 0, "longitude": 0},
             "is_virtual": true,
             "virtual_link": "https://teams.microsoft.com/immigration-workshop"
         },
@@ -604,7 +583,6 @@
             "address": "Online",
             "city": "Virtual",
             "state": "Online",
-            "coordinates": {"latitude": 0, "longitude": 0},
             "is_virtual": true,
             "virtual_link": "https://discord.gg/faang-prep-bootcamp"
         },
@@ -632,7 +610,6 @@
             "address": "Online",
             "city": "Virtual",
             "state": "Online",
-            "coordinates": {"latitude": 0, "longitude": 0},
             "is_virtual": true,
             "virtual_link": "https://secure-therapy.com/international-support"
         },
@@ -660,7 +637,6 @@
             "address": "Online",
             "city": "Virtual",
             "state": "Online",
-            "coordinates": {"latitude": 0, "longitude": 0},
             "is_virtual": true,
             "virtual_link": "https://zoom.us/j/business-etiquette-workshop"
         },
@@ -688,7 +664,6 @@
             "address": "Online",
             "city": "Virtual",
             "state": "Online",
-            "coordinates": {"latitude": 0, "longitude": 0},
             "is_virtual": true,
             "virtual_link": "https://youtube.com/live/thanksgiving-cooking-class"
         },
@@ -716,7 +691,6 @@
             "address": "Online",
             "city": "Virtual",
             "state": "Online",
-            "coordinates": {"latitude": 0, "longitude": 0},
             "is_virtual": true,
             "virtual_link": "https://discord.gg/american-pop-culture-games"
         },
