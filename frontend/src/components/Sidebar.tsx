@@ -91,10 +91,15 @@ const Sidebar: React.FC<SidebarProps> = ({
         {/* Header with close button for mobile */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-blue-600/40 rounded-lg">
-              <Settings className="w-5 h-5 text-black" />
+            <div className="p-2 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl shadow-lg">
+              <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
+                <span className="text-blue-600 font-bold text-lg">M</span>
+              </div>
             </div>
-            <h2 className="text-xl font-bold text-gray-900">Immigration Hub</h2>
+            <div>
+              <h2 className="text-xl font-bold text-gray-900">Ma Chu Ni</h2>
+              <p className="text-xs text-gray-500">Immigration Assistant</p>
+            </div>
           </div>
           <button
             onClick={onToggle}

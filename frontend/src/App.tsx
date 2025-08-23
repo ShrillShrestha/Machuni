@@ -32,19 +32,24 @@ function App() {
       style={{ WebkitOverflowScrolling: "touch" }}
     >
       {/* Animated Background */}
-      <div className="fixed inset-0 -z-10">
-        {/* Base gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 animate-gradient-shift"></div>
+      <div className="fixed inset-0 -z-10 overflow-hidden">
+        {/* Base animated gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-100 via-indigo-100 to-purple-100 animate-gradient-shift"></div>
         
-        {/* Floating orbs */}
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-blue-200/30 rounded-full blur-3xl animate-float-slow"></div>
-        <div className="absolute top-3/4 right-1/4 w-96 h-96 bg-indigo-200/20 rounded-full blur-3xl animate-float-slower"></div>
-        <div className="absolute top-1/2 left-3/4 w-48 h-48 bg-purple-200/25 rounded-full blur-3xl animate-float-fast"></div>
-        <div className="absolute bottom-1/4 left-1/2 w-80 h-80 bg-cyan-200/15 rounded-full blur-3xl animate-float-medium"></div>
+        {/* Floating animated orbs */}
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-blue-300/40 to-cyan-300/40 rounded-full blur-3xl animate-float-slow"></div>
+        <div className="absolute top-3/4 right-1/4 w-96 h-96 bg-gradient-to-r from-indigo-300/30 to-purple-300/30 rounded-full blur-3xl animate-float-slower"></div>
+        <div className="absolute top-1/2 left-3/4 w-48 h-48 bg-gradient-to-r from-purple-300/35 to-pink-300/35 rounded-full blur-3xl animate-float-fast"></div>
+        <div className="absolute bottom-1/4 left-1/2 w-80 h-80 bg-gradient-to-r from-cyan-300/25 to-blue-300/25 rounded-full blur-3xl animate-float-medium"></div>
+        
+        {/* Additional smaller floating elements */}
+        <div className="absolute top-10 right-10 w-32 h-32 bg-gradient-to-r from-yellow-200/20 to-orange-200/20 rounded-full blur-2xl animate-float-fast"></div>
+        <div className="absolute bottom-10 left-10 w-40 h-40 bg-gradient-to-r from-green-200/15 to-teal-200/15 rounded-full blur-2xl animate-float-medium"></div>
         
         {/* Subtle mesh overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-white/10 via-transparent to-white/5"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-white/20 via-transparent to-white/10"></div>
       </div>
+
       {/* Sidebar (persistent on desktop) */}
       <div className="hidden lg:block">
         <Sidebar
