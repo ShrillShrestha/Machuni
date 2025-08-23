@@ -2,7 +2,7 @@ import datetime
 from pydantic import BaseModel
 
 # /faq
-class qaPair:
+class QAPair:
     def __init__(self, question: str, answer: str):
         self.question = question
         self.answer = answer
@@ -11,27 +11,25 @@ class qaPair:
         return {"question": self.question, "answer": self.answer}
 
 class FaqRequest(BaseModel):
-    def __init__(self, status: str, language_preferance: str):
-        self.status = status
-        self.language_preferance = language_preferance
+    status: str
+    language_preferance: str
 
 class FaqResponse:
-    def __init__(self, faqs: list[qaPair]):
+    def __init__(self, faqs: list[QAPair]):
         self.faqs = faqs
     
     def to_dict(self):
         return {"faqs": [faq.to_dict() for faq in self.faqs]}
 
 # /persomalized-queries
-class personalizedQueryRequest(BaseModel):
-    def __init__(self, status: str, interests: list[str], country: str, state: str, language_preferance: str):
-        self.status = status
-        self.interests = interests
-        self.country = country
-        self.state = state
-        self.language_preferance = language_preferance
+class PersonalizedQueryRequest(BaseModel):
+    status: str
+    interests: list[str]
+    country: str
+    state: str 
+    language_preferance: str
 
-class personalizedQueryResponse:
+class PersonalizedQueryResponse:
     def __init__(self, queries: list[str]):
         self.queries = queries
 
@@ -103,12 +101,11 @@ class Event:
         }
 
 class RecommendationRequest(BaseModel):
-    def __init__(self, status: str, interests: list[str], country: str, state: str, language_preferance: str):
-        self.status = status
-        self.interests = interests
-        self.country = country
-        self.state = state
-        self.language_preferance = language_preferance
+    status: str
+    interests: list[str]
+    country: str
+    state: str
+    language_preferance: str
 
 class RecommendationResponse:
     def __init__(self, events: list[Event]):
@@ -119,13 +116,12 @@ class RecommendationResponse:
 
 # /chat
 class ChatRequest(BaseModel):
-    def __init__(self, status: str, interests: list[str], country: str, state: str, language_preferance: str, question: str):
-        self.status = status
-        self.interests = interests
-        self.country = country
-        self.state = state
-        self.language_preferance = language_preferance
-        question = question
+    status: str
+    interests: list[str]
+    country: str
+    state: str
+    language_preferance: str
+    question: str
         
 class ChatResponse:
     def __init__(self, answer: str):

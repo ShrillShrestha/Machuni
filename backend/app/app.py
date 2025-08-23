@@ -1,44 +1,47 @@
 from flask import Flask, request
 from flask_cors import CORS
-import custom_type as ct
-from flask_pydantic import validate
+from custom_type import *
 import json
+from request_parser import parse_request
 
 app = Flask(__name__)
+app.config['WTF_CSRF_ENABLED'] = False
 CORS(app)
 
 @app.route('/chat', methods=['POST'])
-def home():
-    chat_response = ct.ChatResponse("This is a sample response from ChatResponse")
+@parse_request(ChatRequest)
+def chat(data: ChatRequest):
+    chat_response = ChatResponse("This is a sample response from ChatResponse")
     return chat_response.to_dict()
 
 @app.route('/queries', methods=['POST'])
-def queries():
+@parse_request(PersonalizedQueryRequest)
+def queries(data: PersonalizedQueryRequest):
     queries = ["What is an F1 visa?", "How to apply for a Green Card?"]
-    return ct.personalizedQueryResponse(queries).to_dict()
+    return PersonalizedQueryResponse(queries).to_dict()
 
 @app.route('/recommendations', methods=['POST'])
-def recommendations():
-    data = request.get_json()
+@parse_request(RecommendationRequest)
+def recommendations(data: RecommendationRequest):
+    print("Received data:", data)
     with open('../data/events.json', 'r') as file:
-        content = file.read()
-        events_data = json.loads(content)
+        events_data = json.load(file)
         events = []
         for event in events_data:
-            location = ct.Location(
+            location = Location(
                 venue_name=event['location']['venue_name'],
                 address=event['location']['address'],
                 city=event['location']['city'],
                 state=event['location']['state'],
                 is_virtual=event['location']['is_virtual']
             )
-            organizer = ct.Organizer(
+            organizer = Organizer(
                 name=event['organizer']['name'],
                 type=event['organizer']['type'],
                 contact_email=event['organizer']['contact_email'],
                 website=event['organizer']['website']
             )
-            event_obj = ct.Event(
+            event_obj = Event(
                 id=event['id'],
                 name=event['name'],
                 description=event['description'],
@@ -52,22 +55,21 @@ def recommendations():
                 image_url=event['image_url']
             )
             events.append(event_obj)
-    recommendation_response = ct.RecommendationResponse(events)
-    return recommendation_response.to_dict() # Convert to dict for JSON serialization
+    recommendation_response = RecommendationResponse(events)
+    return recommendation_response.to_dict()
 
 @app.route('/faqs', methods=['POST'])
-@validate()
-def faqs():
-    data = request.get_json()
-    status = data['status']
-    faqResponse = ct.FaqResponse([])
+@parse_request(FaqRequest)
+def faqs(data: FaqRequest):
+    print("Received data:", data)
+    status = data.status
+    faqResponse = FaqResponse([])
     try:
         with open('../data/faqs.json', 'r') as file:
-            content = file.read()
-            faqs_data = json.loads(content)
+            faqs_data = json.load(file)
             for faq in faqs_data:
                 if (faq['visa_type'] == status):
-                    qaPair = ct.qaPair(faq['question'], faq['answer'])
+                    qaPair = QAPair(faq['question'], faq['answer'])
                     faqResponse.faqs.append(qaPair)
             
     except FileNotFoundError:
