@@ -7,7 +7,7 @@ import json
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/chat')
+@app.route('/chat', methods=['POST'])
 def home():
     chat_response = ct.ChatResponse("This is a sample response from ChatResponse")
     return chat_response.to_dict()
