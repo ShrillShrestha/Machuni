@@ -1,0 +1,709 @@
+[
+    {
+        "id": 1,
+        "name": "Dashain Festival Celebration 2025",
+        "description": "Join the largest Nepalese festival celebration in DC area! Experience traditional Dashain rituals, enjoy authentic dal-bhat, sel roti, and mutton curry. Live performances by renowned Nepali artists, traditional dance competitions, and cultural workshops for kids.",
+        "start_datetime": "2025-10-12T15:00:00",
+        "end_datetime": "2025-10-12T21:00:00",
+        "location": {
+            "venue_name": "Washington Hindu Temple",
+            "address": "10908 Courthouse Rd, Fredericksburg, VA 22408",
+            "city": "Washington",
+            "state": "DC",
+            "is_virtual": false
+        },
+        "category": "cultural",
+        "subcategory": "festivals",
+        "tags": ["dashain", "nepal", "festival", "traditional", "food", "music", "dance", "family"],
+        "target_audience": ["students", "families", "professionals"],
+        "organizer": {
+            "name": "Nepal Society of Greater Washington",
+            "type": "community_organization",
+            "contact_email": "info@nsgw.org",
+            "website": "https://nsgw.org"
+        },
+        "image_url": "https://example.com/images/dashain_festival.jpg"
+    },
+    
+    {
+        "id": 2,
+        "name": "Tech Career Bootcamp: Resume & Interview Prep",
+        "description": "3-day intensive bootcamp for international students entering the US tech job market. Learn to craft ATS-friendly resumes, practice behavioral interviews, understand visa sponsorship process, and network with tech recruiters from top companies.",
+        "start_datetime": "2025-09-15T09:00:00",
+        "end_datetime": "2025-09-17T17:00:00",
+        "location": {
+            "venue_name": "1776 Startup Incubator",
+            "address": "1133 15th St NW, Washington, DC 20005",
+            "city": "Washington",
+            "state": "DC",
+            "is_virtual": false
+        },
+        "category": "professional",
+        "subcategory": "career_development",
+        "tags": ["career", "tech", "resume", "interview", "visa", "h1b", "networking"],
+        "target_audience": ["students", "job_seekers", "international_professionals"],
+        "organizer": {
+            "name": "TechCareer International",
+            "type": "professional_organization",
+            "contact_email": "events@techcareer.org",
+            "website": "https://techcareer.org"
+        },
+        "image_url": "https://example.com/images/tech_bootcamp.jpg"
+    },
+    
+    {
+        "id": 3,
+        "name": "Potomac River Kayaking Adventure",
+        "description": "Explore the scenic Potomac River by kayak! Perfect for beginners with guided instruction and safety briefing. Experience American outdoor culture while enjoying beautiful fall foliage. All equipment provided including life jackets and waterproof bags.",
+        "start_datetime": "2025-09-21T10:00:00",
+        "end_datetime": "2025-09-21T15:00:00",
+        "location": {
+            "venue_name": "Key Bridge Boathouse",
+            "address": "3500 Water St NW, Washington, DC 20007",
+            "city": "Washington",
+            "state": "DC",
+            "is_virtual": false
+        },
+        "category": "outdoor",
+        "subcategory": "water_sports",
+        "tags": ["kayaking", "potomac", "outdoor", "adventure", "nature", "beginner_friendly"],
+        "target_audience": ["students", "young_professionals", "outdoor_enthusiasts"],
+        "organizer": {
+            "name": "DC Adventure Club",
+            "type": "recreational_group",
+            "contact_email": "adventures@dcclub.org",
+            "website": "https://dcadventureclub.org"
+        },
+        "image_url": "https://example.com/images/kayaking.jpg"
+    },
+    
+    {
+        "id": 4,
+        "name": "Smithsonian Museum Cultural Tour",
+        "description": "Guided tour of Smithsonian Museums focusing on American history and culture. Visit National Museum of American History, Air & Space Museum, and Natural History Museum. Perfect introduction to American heritage and scientific achievements.",
+        "start_datetime": "2025-09-28T10:00:00",
+        "end_datetime": "2025-09-28T16:00:00",
+        "location": {
+            "venue_name": "National Mall",
+            "address": "National Mall, Washington, DC 20560",
+            "city": "Washington",
+            "state": "DC",
+            "is_virtual": false
+        },
+        "category": "cultural",
+        "subcategory": "museums",
+        "tags": ["museums", "smithsonian", "american_history", "culture", "educational", "tourism"],
+        "target_audience": ["students", "culture_enthusiasts", "history_lovers"],
+        "organizer": {
+            "name": "Cultural Immersion Tours DC",
+            "type": "tour_company",
+            "contact_email": "tours@cultural-dc.org",
+            "website": "https://culturalimmersion-dc.org"
+        },
+        "image_url": "https://example.com/images/smithsonian_tour.jpg"
+    },
+    
+    {
+        "id": 5,
+        "name": "Cherry Blossom Festival Volunteer Day",
+        "description": "Volunteer at Washington DC's famous Cherry Blossom Festival! Help with crowd management, information booths, and event setup. Great way to give back to the community while experiencing this iconic American spring tradition and meeting locals.",
+        "start_datetime": "2025-04-05T08:00:00",
+        "end_datetime": "2025-04-05T16:00:00",
+        "location": {
+            "venue_name": "Tidal Basin",
+            "address": "1501 Maine Ave SW, Washington, DC 20024",
+            "city": "Washington",
+            "state": "DC",
+            "is_virtual": false
+        },
+        "category": "volunteer",
+        "subcategory": "community_service",
+        "tags": ["volunteer", "cherry_blossom", "festival", "community", "spring", "service"],
+        "target_audience": ["students", "community_volunteers", "service_oriented"],
+        "organizer": {
+            "name": "National Cherry Blossom Festival",
+            "type": "festival_organization",
+            "contact_email": "volunteers@nationalcherryblossomfestival.org",
+            "website": "https://nationalcherryblossomfestival.org"
+        },
+        "image_url": "https://example.com/images/cherry_blossom_volunteer.jpg"
+    },
+
+    {
+        "id": 6,
+        "name": "Austin BBQ & Texas Culture Experience",
+        "description": "Experience authentic Texas BBQ culture! Visit famous Franklin Barbecue, learn about Texas BBQ traditions, and enjoy live country music. Perfect introduction to Southern hospitality and Texas food culture. Includes BBQ cooking tips and local brewery tour.",
+        "start_datetime": "2025-09-14T12:00:00",
+        "end_datetime": "2025-09-14T18:00:00",
+        "location": {
+            "venue_name": "Franklin Barbecue",
+            "address": "900 E 11th St, Austin, TX 78702",
+            "city": "Austin",
+            "state": "TX",
+            "is_virtual": false
+        },
+        "category": "cultural",
+        "subcategory": "food_culture",
+        "tags": ["bbq", "texas", "food_culture", "country_music", "southern_hospitality", "brewery"],
+        "target_audience": ["students", "food_enthusiasts", "cultural_learners"],
+        "organizer": {
+            "name": "Austin Cultural Experience Society",
+            "type": "cultural_organization",
+            "contact_email": "howdy@austinculture.org",
+            "website": "https://austinculture.org"
+        },
+        "image_url": "https://example.com/images/texas_bbq.jpg"
+    },
+    
+    {
+        "id": 7,
+        "name": "NASA Johnson Space Center Tour",
+        "description": "Exclusive tour of NASA's Mission Control Center and Space Center Houston. Meet with NASA engineers, learn about space missions, and experience American space technology achievements. Perfect for STEM students and space enthusiasts.",
+        "start_datetime": "2025-08-30T09:00:00",
+        "end_datetime": "2025-08-30T15:00:00",
+        "location": {
+            "venue_name": "Space Center Houston",
+            "address": "1601 E NASA Pkwy, Houston, TX 77058",
+            "city": "Houston",
+            "state": "TX",
+            "is_virtual": false
+        },
+        "category": "educational",
+        "subcategory": "science_technology",
+        "tags": ["nasa", "space", "stem", "technology", "engineering", "educational"],
+        "target_audience": ["students", "stem_enthusiasts", "engineering_students"],
+        "organizer": {
+            "name": "Houston International Student STEM Society",
+            "type": "educational_organization",
+            "contact_email": "stem@houstonintl.org",
+            "website": "https://houston-stem.org"
+        },
+        "image_url": "https://example.com/images/nasa_tour.jpg"
+    },
+    
+    {
+        "id": 8,
+        "name": "Dallas Cowboys Game Experience",
+        "description": "Experience American football culture at AT&T Stadium! Watch the Dallas Cowboys with pre-game tailgating, stadium tour, and football rules explanation. Learn about American sports traditions and enjoy classic game day foods like nachos and hot dogs.",
+        "start_datetime": "2025-10-26T12:00:00",
+        "end_datetime": "2025-10-26T18:00:00",
+        "location": {
+            "venue_name": "AT&T Stadium",
+            "address": "1 AT&T Way, Arlington, TX 76011",
+            "city": "Arlington",
+            "state": "TX",
+            "is_virtual": false
+        },
+        "category": "sports",
+        "subcategory": "spectator_sports",
+        "tags": ["football", "cowboys", "american_culture", "sports", "tailgating", "stadium"],
+        "target_audience": ["students", "sports_enthusiasts", "cultural_learners"],
+        "organizer": {
+            "name": "Texas International Sports Experience",
+            "type": "recreational_group",
+            "contact_email": "football@texassports.org",
+            "website": "https://texas-sportsexperience.org"
+        },
+        "image_url": "https://example.com/images/cowboys_game.jpg"
+    },
+    
+    {
+        "id": 9,
+        "name": "Austin Tech Startup Networking Night",
+        "description": "Network with Austin's thriving tech startup community! Meet founders, developers, and investors. Learn about Texas tech ecosystem, startup culture, and job opportunities. Includes pitch presentations and casual networking over Texas craft beer.",
+        "start_datetime": "2025-09-18T18:00:00",
+        "end_datetime": "2025-09-18T21:00:00",
+        "location": {
+            "venue_name": "Capital Factory",
+            "address": "701 Brazos St, Austin, TX 78701",
+            "city": "Austin",
+            "state": "TX",
+            "is_virtual": false
+        },
+        "category": "professional",
+        "subcategory": "networking",
+        "tags": ["startups", "tech", "networking", "entrepreneurship", "innovation", "austin"],
+        "target_audience": ["students", "tech_professionals", "entrepreneurs"],
+        "organizer": {
+            "name": "Austin Tech International Network",
+            "type": "professional_organization",
+            "contact_email": "network@austintech.org",
+            "website": "https://austintech-intl.org"
+        },
+        "image_url": "https://example.com/images/austin_tech.jpg"
+    },
+    
+    {
+        "id": 10,
+        "name": "Texas State Fair Cultural Experience",
+        "description": "Experience the iconic Texas State Fair! Try famous corn dogs, funnel cakes, and fried everything. Enjoy rodeo shows, live music, and carnival rides. Perfect introduction to Texas culture and American fair traditions.",
+        "start_datetime": "2025-10-04T11:00:00",
+        "end_datetime": "2025-10-04T19:00:00",
+        "location": {
+            "venue_name": "Fair Park",
+            "address": "3921 Martin Luther King Jr Blvd, Dallas, TX 75210",
+            "city": "Dallas",
+            "state": "TX",
+            "is_virtual": false
+        },
+        "category": "cultural",
+        "subcategory": "festivals",
+        "tags": ["state_fair", "texas_culture", "food", "rodeo", "carnival", "american_tradition"],
+        "target_audience": ["students", "families", "cultural_enthusiasts"],
+        "organizer": {
+            "name": "Texas Cultural Immersion Society",
+            "type": "cultural_organization",
+            "contact_email": "yeehaw@texasculture.org",
+            "website": "https://texas-culture.org"
+        },
+        "image_url": "https://example.com/images/texas_state_fair.jpg"
+    },
+
+    {
+        "id": 11,
+        "name": "Boston Tea Party Reenactment & History Tour",
+        "description": "Experience American revolutionary history! Participate in Boston Tea Party reenactment, tour the Freedom Trail, and visit historic sites. Learn about American independence and democratic values that shaped the nation.",
+        "start_datetime": "2025-09-20T14:00:00",
+        "end_datetime": "2025-09-20T18:00:00",
+        "location": {
+            "venue_name": "Boston Tea Party Ships & Museum",
+            "address": "306 Congress St, Boston, MA 02210",
+            "city": "Boston",
+            "state": "MA",
+            "is_virtual": false
+        },
+        "category": "cultural",
+        "subcategory": "historical",
+        "tags": ["history", "american_revolution", "freedom_trail", "educational", "boston"],
+        "target_audience": ["students", "history_enthusiasts", "cultural_learners"],
+        "organizer": {
+            "name": "Boston Historical Experience Society",
+            "type": "educational_organization",
+            "contact_email": "history@bostonexp.org",
+            "website": "https://boston-historical.org"
+        },
+        "image_url": "https://example.com/images/boston_tea_party.jpg"
+    },
+    
+    {
+        "id": 12,
+        "name": "MIT & Harvard Campus Innovation Tour",
+        "description": "Tour two of America's most prestigious universities! Visit MIT labs, Harvard campus, and meet with international students. Learn about American higher education culture, research opportunities, and academic traditions.",
+        "start_datetime": "2025-09-12T10:00:00",
+        "end_datetime": "2025-09-12T16:00:00",
+        "location": {
+            "venue_name": "MIT Campus",
+            "address": "77 Massachusetts Ave, Cambridge, MA 02139",
+            "city": "Cambridge",
+            "state": "MA",
+
+            "is_virtual": false
+        },
+        "category": "educational",
+        "subcategory": "university_tour",
+        "tags": ["mit", "harvard", "university", "education", "innovation", "campus_tour"],
+        "target_audience": ["students", "academic_enthusiasts", "researchers"],
+        "organizer": {
+            "name": "Boston Academic Exchange Program",
+            "type": "educational_organization",
+            "contact_email": "tours@bostonacademic.org",
+            "website": "https://boston-academic.org"
+        },
+        "image_url": "https://example.com/images/mit_harvard_tour.jpg"
+    },
+    
+    {
+        "id": 13,
+        "name": "New England Clam Chowder Cook-Off",
+        "description": "Learn to make authentic New England clam chowder! Cooking competition followed by tasting session. Understand regional American cuisine and New England food traditions. Includes lobster roll making demonstration.",
+        "start_datetime": "2025-10-18T15:00:00",
+        "end_datetime": "2025-10-18T19:00:00",
+        "location": {
+            "venue_name": "Boston Public Market",
+            "address": "100 Hanover St, Boston, MA 02108",
+            "city": "Boston",
+            "state": "MA",
+            "is_virtual": false
+        },
+        "category": "cultural",
+        "subcategory": "cooking",
+        "tags": ["cooking", "clam_chowder", "new_england", "seafood", "food_culture", "competition"],
+        "target_audience": ["students", "food_enthusiasts", "cultural_learners"],
+        "organizer": {
+            "name": "New England Culinary Cultural Society",
+            "type": "culinary_organization",
+            "contact_email": "chowder@newenglandculinary.org",
+            "website": "https://newengland-culinary.org"
+        },
+        "image_url": "https://example.com/images/clam_chowder_cookoff.jpg"
+    },
+    
+    {
+        "id": 14,
+        "name": "Boston Red Sox Baseball Game Experience",
+        "description": "Experience America's pastime at historic Fenway Park! Learn baseball rules, enjoy classic ballpark foods like peanuts and Cracker Jacks, and sing 'Sweet Caroline' during the 7th inning stretch. Perfect introduction to American sports culture.",
+        "start_datetime": "2025-08-29T19:00:00",
+        "end_datetime": "2025-08-29T22:00:00",
+        "location": {
+            "venue_name": "Fenway Park",
+            "address": "4 Jersey St, Boston, MA 02215",
+            "city": "Boston",
+            "state": "MA",
+            "is_virtual": false
+        },
+        "category": "sports",
+        "subcategory": "spectator_sports",
+        "tags": ["baseball", "red_sox", "fenway", "american_culture", "sports", "ballpark"],
+        "target_audience": ["students", "sports_fans", "cultural_enthusiasts"],
+        "organizer": {
+            "name": "Boston International Sports Society",
+            "type": "recreational_group",
+            "contact_email": "baseball@bostonsports.org",
+            "website": "https://boston-sportsexperience.org"
+        },
+        "image_url": "https://example.com/images/fenway_park.jpg"
+    },
+    
+    {
+        "id": 15,
+        "name": "Boston Biotech Career Fair & Lab Tour",
+        "description": "Explore Boston's world-renowned biotech industry! Visit cutting-edge labs, meet with biotech professionals, and learn about career opportunities. Includes resume workshops focused on biotech industry and networking session.",
+        "start_datetime": "2025-09-25T13:00:00",
+        "end_datetime": "2025-09-25T18:00:00",
+        "location": {
+            "venue_name": "Kendall Square Research Complex",
+            "address": "1 Kendall Sq, Cambridge, MA 02139",
+            "city": "Cambridge",
+            "state": "MA",
+            "is_virtual": false
+        },
+        "category": "professional",
+        "subcategory": "career_fair",
+        "tags": ["biotech", "career_fair", "life_sciences", "lab_tour", "networking", "stem"],
+        "target_audience": ["students", "biotech_professionals", "stem_graduates"],
+        "organizer": {
+            "name": "Boston Biotech International Alliance",
+            "type": "professional_organization",
+            "contact_email": "careers@bostonbiotech.org",
+            "website": "https://boston-biotech.org"
+        },
+        "image_url": "https://example.com/images/biotech_career_fair.jpg"
+    },
+
+    {
+        "id": 16,
+        "name": "Southern Soul Food Cooking Workshop",
+        "description": "Learn to cook authentic Southern comfort food! Hands-on workshop covering fried chicken, mac and cheese, cornbread, and peach cobbler. Understand Southern hospitality culture and African American culinary contributions to American cuisine.",
+        "start_datetime": "2025-10-11T14:00:00",
+        "end_datetime": "2025-10-11T18:00:00",
+        "location": {
+            "venue_name": "Sweet Auburn Curb Market",
+            "address": "209 Edgewood Ave SE, Atlanta, GA 30303",
+            "city": "Atlanta",
+            "state": "GA",
+            "is_virtual": false
+        },
+        "category": "cultural",
+        "subcategory": "cooking",
+        "tags": ["southern_food", "soul_food", "cooking", "african_american_culture", "southern_hospitality"],
+        "target_audience": ["students", "food_enthusiasts", "cultural_learners"],
+        "organizer": {
+            "name": "Atlanta Southern Culture Society",
+            "type": "cultural_organization",
+            "contact_email": "y'all@atlantasouthern.org",
+            "website": "https://atlanta-southern.org"
+        },
+        "image_url": "https://example.com/images/southern_cooking.jpg"
+    },
+    
+    {
+        "id": 17,
+        "name": "Civil Rights Movement Historical Tour",
+        "description": "Powerful tour of Atlanta's Civil Rights landmarks! Visit Martin Luther King Jr. National Historical Park, Ebenezer Baptist Church, and the Center for Civil and Human Rights. Learn about American civil rights history and social justice movements.",
+        "start_datetime": "2025-09-16T10:00:00",
+        "end_datetime": "2025-09-16T15:00:00",
+        "location": {
+            "venue_name": "Martin Luther King Jr. National Historical Park",
+            "address": "450 Auburn Ave NE, Atlanta, GA 30312",
+            "city": "Atlanta",
+            "state": "GA",
+            "is_virtual": false
+        },
+        "category": "cultural",
+        "subcategory": "historical",
+        "tags": ["civil_rights", "mlk", "history", "social_justice", "african_american_culture", "educational"],
+        "target_audience": ["students", "history_enthusiasts", "social_justice_advocates"],
+        "organizer": {
+            "name": "Atlanta Civil Rights Education Foundation",
+            "type": "educational_organization",
+            "contact_email": "history@atlantacivilrights.org",
+            "website": "https://atlanta-civilrights.org"
+        },
+        "image_url": "https://example.com/images/civil_rights_tour.jpg"
+    },
+    
+    {
+        "id": 18,
+        "name": "Atlanta Hawks NBA Basketball Experience",
+        "description": "Experience professional basketball at State Farm Arena! Learn basketball rules and NBA culture, enjoy arena food, and participate in halftime entertainment. Perfect introduction to American basketball and Atlanta sports culture.",
+        "start_datetime": "2025-11-15T19:00:00",
+        "end_datetime": "2025-11-15T22:00:00",
+        "location": {
+            "venue_name": "State Farm Arena",
+            "address": "1 State Farm Dr, Atlanta, GA 30303",
+            "city": "Atlanta",
+            "state": "GA",
+            "is_virtual": false
+        },
+        "category": "sports",
+        "subcategory": "spectator_sports",
+        "tags": ["basketball", "nba", "hawks", "sports_culture", "arena", "entertainment"],
+        "target_audience": ["students", "sports_fans", "entertainment_seekers"],
+        "organizer": {
+            "name": "Atlanta Sports International Community",
+            "type": "recreational_group",
+            "contact_email": "hoops@atlantasports.org",
+            "website": "https://atlanta-sportsintl.org"
+        },
+        "image_url": "https://example.com/images/hawks_basketball.jpg"
+    },
+    
+    {
+        "id": 19,
+        "name": "CNN Center & Media Industry Tour",
+        "description": "Behind-the-scenes tour of CNN's world headquarters! Learn about American media industry, watch live news broadcasts, and understand journalism in democracy. Meet international journalists and explore media career opportunities.",
+        "start_datetime": "2025-09-22T13:00:00",
+        "end_datetime": "2025-09-22T16:00:00",
+        "location": {
+            "venue_name": "CNN Center",
+            "address": "190 Marietta St NW, Atlanta, GA 30303",
+            "city": "Atlanta",
+            "state": "GA",
+            "is_virtual": false
+        },
+        "category": "educational",
+        "subcategory": "media_tour",
+        "tags": ["cnn", "media", "journalism", "news", "broadcasting", "career_exploration"],
+        "target_audience": ["students", "journalism_students", "media_enthusiasts"],
+        "organizer": {
+            "name": "Atlanta Media Professionals International",
+            "type": "professional_organization",
+            "contact_email": "media@atlantaintl.org",
+            "website": "https://atlanta-media.org"
+        },
+        "image_url": "https://example.com/images/cnn_tour.jpg"
+    },
+    
+    {
+        "id": 20,
+        "name": "Atlanta BeltLine Art Walk & Community Gardens",
+        "description": "Explore Atlanta's innovative BeltLine trail system! Walk through public art installations, visit community gardens, and learn about urban renewal and sustainability. Great way to understand modern American city planning and community development.",
+        "start_datetime": "2025-10-09T15:00:00",
+        "end_datetime": "2025-10-09T18:00:00",
+        "location": {
+            "venue_name": "Atlanta BeltLine Eastside Trail",
+            "address": "590 N Highland Ave NE, Atlanta, GA 30307",
+            "city": "Atlanta",
+            "state": "GA",
+            "is_virtual": false
+        },
+        "category": "outdoor",
+        "subcategory": "urban_exploration",
+        "tags": ["beltline", "art", "sustainability", "urban_planning", "community", "walking"],
+        "target_audience": ["students", "art_enthusiasts", "environmental_advocates"],
+        "organizer": {
+            "name": "Atlanta Sustainable Communities International",
+            "type": "environmental_organization",
+            "contact_email": "green@atlantasustainable.org",
+            "website": "https://atlanta-sustainable.org"
+        },
+        "image_url": "https://example.com/images/beltline_art_walk.jpg"
+    },
+     {
+        "id": 21,
+        "name": "Virtual Nepali-American Cultural Exchange",
+        "description": "Monthly online cultural exchange connecting Nepali students across all US cities! Share experiences, discuss cultural challenges, celebrate festivals together, and build a nationwide Nepali student community. Features breakout rooms by interests and regions.",
+        "start_datetime": "2025-09-05T20:00:00",
+        "end_datetime": "2025-09-05T22:00:00",
+        "location": {
+            "venue_name": "Zoom Virtual Event",
+            "address": "Online",
+            "city": "Virtual",
+            "state": "Online",
+            "is_virtual": true,
+            "virtual_link": "https://zoom.us/j/nepali-cultural-exchange"
+        },
+        "category": "cultural",
+        "subcategory": "virtual_community",
+        "tags": ["nepali", "cultural_exchange", "virtual", "community", "nationwide", "online"],
+        "target_audience": ["nepali_students", "international_students", "cultural_enthusiasts"],
+        "organizer": {
+            "name": "Nepali Students Association of America",
+            "type": "student_organization",
+            "contact_email": "connect@nsaa.org",
+            "website": "https://nepalistudents-america.org"
+        },
+        "image_url": "https://example.com/images/virtual_nepali_exchange.jpg"
+    },
+    {
+        "id": 22,
+        "name": "Online US Immigration Workshop: F1 to H1B Transition",
+        "description": "Comprehensive virtual workshop on transitioning from F1 student visa to H1B work visa. Expert immigration lawyers explain CPT, OPT, H1B process, and answer personal questions. Includes downloadable resources and follow-up Q&A sessions.",
+        "start_datetime": "2025-08-31T14:00:00",
+        "end_datetime": "2025-08-31T17:00:00",
+        "location": {
+            "venue_name": "Microsoft Teams Virtual Workshop",
+            "address": "Online",
+            "city": "Virtual",
+            "state": "Online",
+            "is_virtual": true,
+            "virtual_link": "https://teams.microsoft.com/immigration-workshop"
+        },
+        "category": "educational",
+        "subcategory": "immigration",
+        "tags": ["immigration", "f1_visa", "h1b", "opt", "cpt", "legal_advice", "virtual"],
+        "target_audience": ["international_students", "f1_students", "job_seekers"],
+        "organizer": {
+            "name": "International Student Legal Aid Society",
+            "type": "legal_organization",
+            "contact_email": "help@studentlegal.org",
+            "website": "https://international-studentlegal.org"
+        },
+        "image_url": "https://example.com/images/virtual_immigration_workshop.jpg"
+    },
+
+    {
+        "id": 23,
+        "name": "Virtual Tech Interview Bootcamp: FAANG Preparation",
+        "description": "Intensive online bootcamp preparing international students for tech interviews at Google, Meta, Amazon, Netflix, and Apple. Live coding sessions, system design practice, behavioral interview prep, and peer programming exercises.",
+        "start_datetime": "2025-09-07T10:00:00",
+        "end_datetime": "2025-09-08T18:00:00",
+        "location": {
+            "venue_name": "Discord & CodePen Virtual Labs",
+            "address": "Online",
+            "city": "Virtual",
+            "state": "Online",
+            "is_virtual": true,
+            "virtual_link": "https://discord.gg/faang-prep-bootcamp"
+        },
+        "category": "professional",
+        "subcategory": "interview_prep",
+        "tags": ["tech_interviews", "faang", "coding", "system_design", "virtual", "career_prep"],
+        "target_audience": ["cs_students", "software_engineers", "tech_job_seekers"],
+        "organizer": {
+            "name": "International Tech Career Accelerator",
+            "type": "professional_organization",
+            "contact_email": "bootcamp@techcareer-intl.org",
+            "website": "https://tech-career-international.org"
+        },
+        "image_url": "https://example.com/images/virtual_tech_bootcamp.jpg"
+    },
+
+    {
+        "id": 24,
+        "name": "Online Mental Health Support Circle for International Students",
+        "description": "Weekly virtual support group for international students dealing with homesickness, culture shock, academic stress, and social isolation. Licensed therapist-facilitated with peer support and coping strategy sharing.",
+        "start_datetime": "2025-09-02T19:00:00",
+        "end_datetime": "2025-09-02T20:30:00",
+        "location": {
+            "venue_name": "Secure Telehealth Platform",
+            "address": "Online",
+            "city": "Virtual",
+            "state": "Online",
+            "is_virtual": true,
+            "virtual_link": "https://secure-therapy.com/international-support"
+        },
+        "category": "health_wellness",
+        "subcategory": "mental_health",
+        "tags": ["mental_health", "support_group", "virtual", "counseling", "peer_support", "weekly"],
+        "target_audience": ["international_students", "students", "mental_health_support"],
+        "organizer": {
+            "name": "Global Student Wellness Initiative",
+            "type": "healthcare_organization",
+            "contact_email": "support@globalstudent-wellness.org",
+            "website": "https://global-student-wellness.org"
+        },
+        "image_url": "https://example.com/images/virtual_mental_health.jpg"
+    },
+
+    {
+        "id": 25,
+        "name": "Virtual American Business Etiquette & Networking Workshop",
+        "description": "Learn professional American workplace culture online! Covers email etiquette, meeting protocols, small talk, networking strategies, and cultural nuances. Interactive role-playing sessions and breakout networking practice.",
+        "start_datetime": "2025-09-11T18:00:00",
+        "end_datetime": "2025-09-11T20:30:00",
+        "location": {
+            "venue_name": "Zoom Professional Workshop",
+            "address": "Online",
+            "city": "Virtual",
+            "state": "Online",
+            "is_virtual": true,
+            "virtual_link": "https://zoom.us/j/business-etiquette-workshop"
+        },
+        "category": "professional",
+        "subcategory": "workplace_culture",
+        "tags": ["business_etiquette", "workplace_culture", "networking", "professional_skills", "virtual"],
+        "target_audience": ["international_students", "young_professionals", "job_seekers"],
+        "organizer": {
+            "name": "American Professional Culture Institute",
+            "type": "professional_organization",
+            "contact_email": "etiquette@americanprofessional.org",
+            "website": "https://american-professional-culture.org"
+        },
+        "image_url": "https://example.com/images/virtual_business_etiquette.jpg"
+    },
+
+    {
+        "id": 26,
+        "name": "Online Thanksgiving Cooking Class: Traditional American Recipes",
+        "description": "Learn to cook a complete Thanksgiving meal from your kitchen! Interactive cooking class with professional chef demonstrating turkey preparation, stuffing, cranberry sauce, and pumpkin pie. Shopping list and recipe cards provided.",
+        "start_datetime": "2025-11-20T16:00:00",
+        "end_datetime": "2025-11-20T19:00:00",
+        "location": {
+            "venue_name": "YouTube Live Kitchen",
+            "address": "Online",
+            "city": "Virtual",
+            "state": "Online",
+            "is_virtual": true,
+            "virtual_link": "https://youtube.com/live/thanksgiving-cooking-class"
+        },
+        "category": "cultural",
+        "subcategory": "cooking",
+        "tags": ["thanksgiving", "cooking", "american_culture", "holiday", "virtual", "recipes"],
+        "target_audience": ["students", "cooking_enthusiasts", "cultural_learners"],
+        "organizer": {
+            "name": "Virtual American Kitchen Academy",
+            "type": "culinary_organization",
+            "contact_email": "chef@american-kitchen.org",
+            "website": "https://virtual-american-kitchen.org"
+        },
+        "image_url": "https://example.com/images/virtual_thanksgiving_cooking.jpg"
+    },
+
+    {
+        "id": 27,
+        "name": "Virtual Game Night: American Pop Culture Trivia",
+        "description": "Fun online game night featuring American pop culture trivia, music, movies, and TV shows! Interactive games using Kahoot, Jackbox Games, and breakout room team competitions. Perfect for learning American cultural references.",
+        "start_datetime": "2025-09-27T20:00:00",
+        "end_datetime": "2025-09-27T22:00:00",
+        "location": {
+            "venue_name": "Discord Gaming Server",
+            "address": "Online",
+            "city": "Virtual",
+            "state": "Online",
+            "is_virtual": true,
+            "virtual_link": "https://discord.gg/american-pop-culture-games"
+        },
+        "category": "social",
+        "subcategory": "games",
+        "tags": ["games", "pop_culture", "trivia", "virtual", "social", "american_culture"],
+        "target_audience": ["students", "young_professionals", "pop_culture_fans"],
+        "organizer": {
+            "name": "International Students Gaming Community",
+            "type": "social_group",
+            "contact_email": "games@intl-students-gaming.org",
+            "website": "https://international-gaming.org"
+        },
+        "image_url": "https://example.com/images/virtual_game_night.jpg"
+    }
+]

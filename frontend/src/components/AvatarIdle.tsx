@@ -47,7 +47,7 @@ const AvatarIdle = () => {
   }, []);
 
   return (
-    <div className="rounded-full p-[3px] overflow-hidden bg-primary shrink-0 relative border-4 border-green-500">
+    <div className="rounded-full p-[3px] overflow-hidden bg-primary shrink-0 relative border-4 border-blue-600">
       <div className="size-24 sm:w-[130px] sm:h-[130px]"></div>
       {avatarAnimationQueue.map((img, index) => (
         <img

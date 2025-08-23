@@ -1,6 +1,8 @@
 export interface UserPreferences {
   visaStatus: string;
-  city: string;
+  state: string;
+  country: string;
+  language_preference: string;
   interests: string[];
 }
 
@@ -28,4 +30,17 @@ export interface Event {
   description: string;
   category: string;
   image: string;
+}
+
+export interface ChatRequest {
+  status: string;
+  interests: string[];
+  country: string;
+  state: string;
+  language_preferance: string;
+  question: string;
+}
+
+export interface ChatResponse {
+  answer: string;
 }
