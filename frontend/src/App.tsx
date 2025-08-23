@@ -1,61 +1,144 @@
-import React, { useState } from 'react';
-import Sidebar from './components/Sidebar';
-import ChatTab from './components/ChatTab';
-import EventsTab from './components/EventsTab';
-import { UserPreferences } from './types';
+import React, { useState } from "react";
+import ChatTab from "./components/ChatTab";
+import EventsTab from "./components/EventsTab";
+import CommunityQnATab from "./components/CommunityQnATab";
+import { UserPreferences } from "./types";
+import { ChatProvider } from "./context/ChatContext";
+import FAQsTab from "./components/FAQsTab";
+import Sidebar from "./components/Sidebar";
+import { Menu } from "lucide-react";
 
 function App() {
-  const [activeTab, setActiveTab] = useState<'chat' | 'events'>('chat');
+  const [currentPage, setCurrentPage] = useState<
+    "chat" | "events" | "community" | "faqs"
+  >("chat");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [userPreferences, setUserPreferences] = useState<UserPreferences>({
-    visaStatus: '',
-    city: '',
-    interests: []
+    visaStatus: "",
+    state: "",
+    country: "",
+    language_preference: "",
+    interests: [],
   });
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const closeSidebar = () => {
+    setIsSidebarOpen(false);
+  };
+
+  const handlePreferencesChange = (newPreferences: UserPreferences) => {
+    setUserPreferences(newPreferences);
+  };
+
+  const handlePageChange = (page: "chat" | "events" | "community" | "faqs") => {
+    setCurrentPage(page);
+  };
+
+  const renderCurrentTab = () => {
+    switch (currentPage) {
+      case "chat":
+        return (
+          <ChatTab
+            preferences={userPreferences}
+            onToggleSidebar={toggleSidebar}
+          />
+        );
+      case "events":
+        return (
+          <EventsTab
+            preferences={userPreferences}
+            onToggleSidebar={toggleSidebar}
+          />
+        );
+      case "community":
+        return <CommunityQnATab />;
+      case "faqs":
+        return (
+          <FAQsTab
+            preferences={userPreferences}
+            onToggleSidebar={toggleSidebar}
+          />
+        );
+      default:
+        return (
+          <ChatTab
+            preferences={userPreferences}
+            onToggleSidebar={toggleSidebar}
+          />
+        );
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 flex">
-      <Sidebar 
-        preferences={userPreferences}
-        onPreferencesChange={setUserPreferences}
-      />
-      
-      <div className="flex-1 flex flex-col">
-        {/* Tab Navigation */}
-        <div className="bg-slate-800/50 backdrop-blur-sm border-b border-slate-700">
-          <div className="flex space-x-1 p-4">
-            <button
-              onClick={() => setActiveTab('chat')}
-              className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
-                activeTab === 'chat'
-                  ? 'bg-blue-600 text-white shadow-lg'
-                  : 'text-slate-300 hover:text-white hover:bg-slate-700/50'
-              }`}
-            >
-              Immigration Assistant
-            </button>
-            <button
-              onClick={() => setActiveTab('events')}
-              className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
-                activeTab === 'events'
-                  ? 'bg-blue-600 text-white shadow-lg'
-                  : 'text-slate-300 hover:text-white hover:bg-slate-700/50'
-              }`}
-            >
-              Local Events
-            </button>
-          </div>
+    <ChatProvider>
+      <div
+        className="
+          relative flex
+          min-h-screen min-h-[100dvh] min-h-[100svh]
+          overflow-hidden
+        "
+        style={{ WebkitOverflowScrolling: "touch" }}
+      >
+        {/* Sidebar (persistent on desktop) */}
+        <div className="hidden lg:block">
+          <Sidebar
+            preferences={userPreferences}
+            onPreferencesChange={setUserPreferences}
+            currentPage={currentPage}
+            onPageChange={handlePageChange}
+            isOpen={true}
+            onClose={closeSidebar}
+            onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
+          />
         </div>
 
-        {/* Tab Content */}
-        <div className="flex-1">
-          {activeTab === 'chat' ? (
-            <ChatTab preferences={userPreferences} />
-          ) : (
-            <EventsTab preferences={userPreferences} />
-          )}
-        </div>
+        <main className="flex-1 flex flex-col w-full pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
+          <div className="lg:hidden p-3">
+            <button
+              onClick={toggleSidebar}
+              className="p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-gray-100 focus:outline-none"
+            >
+              <Menu className="w-6 h-6" />
+            </button>
+          </div>
+          {renderCurrentTab()}
+        </main>
+
+        {/* Mobile Sidebar Overlay (covers entire screen on iOS) */}
+        {isSidebarOpen && (
+          <div className="fixed inset-0 z-50 lg:hidden">
+            {/* Backdrop */}
+            <div
+              className="absolute inset-0 bg-black/50"
+              onClick={() => setIsSidebarOpen(false)}
+            />
+            {/* Sliding panel */}
+            <div
+              className="
+                absolute left-0 top-0
+                h-[100dvh] w-72 max-w-[80vw]
+                bg-white shadow-2xl
+                overflow-y-auto
+                pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]
+              "
+            >
+              <Sidebar
+                preferences={userPreferences}
+                onPreferencesChange={setUserPreferences}
+                currentPage={currentPage}
+                onPageChange={handlePageChange}
+                isOpen={true}
+                onClose={closeSidebar}
+                onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
+              />
+            </div>
+          </div>
+        )}
       </div>
-    </div>
+    </ChatProvider>
   );
 }
 
