@@ -6,34 +6,63 @@ from chromadb.utils import embedding_functions
 from chromadb import PersistentClient  
 from langdetect import detect
 import uuid
+import re
+import requests
+import subprocess
+import json
+import os
+os.environ["CHROMA_TELEMETRY_DISABLED"] = "1"
 
-# 1. Setup Persistent ChromaDB
+
+# 1. Clean text helper
+def clean_text(text):
+    text = re.sub(r'\s+', ' ', text)  # Remove extra whitespace
+    return text.strip()
+
+# 2. Embedding Function class for Ollama
+class OllamaEmbeddingFunction:
+    def __init__(self, model="nomic-embed-text"):
+        self.model = model
+        self.url = "http://localhost:11434/api/embed"
+
+    def __call__(self, input: list[str]) -> list[list[float]]:
+        embeddings = []
+        for text in input:
+            response = requests.post(
+                self.url,
+                json={"model": self.model, "input": text}
+            )
+            response.raise_for_status()
+            data = response.json()
+            embeddings.append(data["embedding"])
+        return embeddings
+    
+
+# 3. Setup Persistent ChromaDB client
 base_path = Path(__file__).resolve().parent.parent
 persist_path = base_path / ".chromadb"
 
 chroma_client = PersistentClient(
-    path=str(persist_path),  
+    path=str(persist_path),
     settings=Settings(anonymized_telemetry=False)
 )
 
-# 2. Setup Embedding Function
-sentence_ef = embedding_functions.SentenceTransformerEmbeddingFunction(
-    model_name="all-MiniLM-L6-v2"
-)
+# 4. Create or load collection
+embedding_function = OllamaEmbeddingFunction()
 
 collection = chroma_client.get_or_create_collection(
     name="immigration_docs",
-    embedding_function=sentence_ef
+    embedding_function=embedding_function
 )
 
-# 3. Utility Functions
+# 5. Utility Functions
 def extract_text(pdf_path):
     doc = fitz.open(pdf_path)
     return "\n".join([p.get_text() for p in doc])
 
 def split_chunks(text, size=500):
     words = text.split()
-    return [" ".join(words[i:i+size]) for i in range(0, len(words), size)]
+    return [" ".join(words[i:i + size]) for i in range(0, len(words), size)]
 
 def detect_lang(text):
     try:
@@ -67,21 +96,24 @@ def guess_topic_from_path(pdf_path):
         return "asylum"
     if "green card" in fname:
         return "green_card"
-
     return "general"
 
-# 4. PDF Processing
+# 6. Process PDF and add to collection
 def process_pdf(pdf_path):
     raw = extract_text(pdf_path)
     print(f" Processing: {pdf_path.name}")
     print(f" Characters: {len(raw)}")
 
-    chunks = split_chunks(raw)
+    cleaned = clean_text(raw)
+    chunks = split_chunks(cleaned)
     topic = guess_topic_from_path(pdf_path)
 
-    for chunk in chunks:
+    embeddings = embedding_function(chunks)
+
+    for i, chunk in enumerate(chunks):
         collection.add(
             documents=[chunk],
+            embeddings=[embeddings[i]],
             metadatas=[{
                 "source": pdf_path.name,
                 "language": detect_lang(chunk),
@@ -93,8 +125,8 @@ def process_pdf(pdf_path):
     print(f" Ingested {pdf_path.name}")
     print(f" Chunked into {len(chunks)} parts\n")
 
-# 5. Run on all PDFs
-pdf_dir = base_path / "PDFs"
+# 7. Run on all PDFs
+pdf_dir = base_path / "data" / "PDFs"
 pdf_files = list(pdf_dir.glob("**/*.pdf"))
 
 if not pdf_files:

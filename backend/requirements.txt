@@ -15,9 +15,9 @@ sentence-transformers
 torch
 chromadb
 langdetect
+requests
 transformers
 pandas
-numpy
 scikit-learn
 gtts
 googletrans==4.0.0-rc1

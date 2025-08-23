@@ -1,48 +1,96 @@
-
-from chromadb.utils import embedding_functions
+from chromadb import PersistentClient
 from chromadb.config import Settings
-import chromadb
 from pathlib import Path
+import requests
+import os
+os.environ["CHROMA_TELEMETRY_DISABLED"] = "1"
 
-# 1. Setup Chroma client (persistent)
+
+# 1. Setup ChromaDB client
 base_path = Path(__file__).resolve().parent.parent
 persist_path = base_path / ".chromadb"
 
-chroma_client = chromadb.PersistentClient(
+chroma_client = PersistentClient(
     path=str(persist_path),
     settings=Settings(anonymized_telemetry=False)
 )
 
-# 2. Load same embedding model used during ingest
-sentence_ef = embedding_functions.SentenceTransformerEmbeddingFunction(
-    model_name="all-MiniLM-L6-v2"
-)
+collection = chroma_client.get_collection(name="immigration_docs")
 
-# 3. Load existing collection
-collection = chroma_client.get_or_create_collection(
-    name="immigration_docs",
-    embedding_function=sentence_ef
-)
+# 2. Ollama Embedding Function 
+def ollama_embed(text):
+    if isinstance(text, str):
+        text = [text]  
 
-# 4. Function to perform query
-def query_immigration_docs(question: str, top_k: int = 5):
+    response = requests.post(
+        "http://localhost:11434/api/embed",
+        json={
+            "model": "nomic-embed-text",
+            "input": text
+        }
+    )
+    try:
+        response.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        print(" HTTP Error:", e)
+        print(" Response JSON:", response.json())
+        raise
+
+    print(" Ollama Response JSON:", response.json())  
+
+    return response.json()["embeddings"][0]
+
+# 3. Ask question and retrieve top chunks
+def ask_question(question, n_results=5):
+    embedding = ollama_embed(question)
+    if isinstance(embedding[0], list):
+        embedding = embedding[0]
+
     results = collection.query(
-        query_texts=[question],
-        n_results=top_k
+        query_embeddings=[embedding],
+        n_results=n_results
     )
 
-    documents = results.get("documents", [[]])[0]
-    metadatas = results.get("metadatas", [[]])[0]
+    documents = results['documents'][0]
+    sources = results['metadatas'][0]
 
-    print(f"\n Top {top_k} results for your query: '{question}'\n")
-    for i, (doc, meta) in enumerate(zip(documents, metadatas), start=1):
-        print(f"{i}. Source: {meta['source']} |  Topic: {meta['topic']}")
-        print(f" Snippet: {doc[:250]}...\n")
+    context_text = "\n".join([f"[{i+1}] From {sources[i]['source']}:\n{doc}" for i, doc in enumerate(documents)])
+    print("\n🔎 Top Matching Chunks:\n")
+    print(context_text)
 
-# 5. Main
+    return "\n".join(documents)  # This is used to have LLM answers instead of source paragraphs
+
+
+
+# 4. Use Ollama LLM to generate answer
+def generate_answer(context, question):
+    prompt = f"""You are an immigration assistant for Nepali immigrants in the US. Use the context below to answer the question clearly and precisely.
+
+### CONTEXT:
+{context}
+
+### QUESTION:
+{question}
+
+### ANSWER:"""
+
+    response = requests.post(
+        "http://localhost:11434/api/generate",
+        json={
+            "model": "llama3",  
+            "prompt": prompt,
+            "stream": False
+        }
+    )
+    response.raise_for_status()
+    return response.json()["response"]
+
+# 5. CLI
 if __name__ == "__main__":
-    while True:
-        q = input("Ask a question (or type 'exit'): ")
-        if q.lower() in {"exit", "quit"}:
-            break
-        query_immigration_docs(q)
+    question = input("\n Enter your question: ")
+    context = ask_question(question)
+    print("\n Generating answer...\n")
+    answer = generate_answer(context, question)
+
+    print("\n Answer:\n")
+    print(answer)
