@@ -1,6 +1,6 @@
 from flask import Flask, request
 from flask_cors import CORS
-from custom_type import ChatRequest, ChatResponse, FaqRequest, FaqResponse, RecommendationRequest, RecommendationResponse, PersonalizedQueryRequest, PersonalizedQueryResponse, Location, Organizer, Event, QAPair 
+from custom_type import *
 import json
 from request_parser import parse_request
 
