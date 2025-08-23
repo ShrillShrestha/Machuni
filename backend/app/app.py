@@ -3,6 +3,7 @@ from flask_cors import CORS
 from custom_type import *
 import json
 from request_parser import parse_request
+from query import ask_question, generate_answer, generate_answer_with_context
 
 app = Flask(__name__)
 app.config['WTF_CSRF_ENABLED'] = False
@@ -11,7 +12,11 @@ CORS(app)
 @app.route('/chat', methods=['POST'])
 @parse_request(ChatRequest)
 def chat(data: ChatRequest):
-    chat_response = ChatResponse("This is a sample response from ChatResponse")
+    question = data.question
+
+    context = ask_question(question)
+    answer = generate_answer_with_context(question, context, "English", {"status": data.status, "interests": data.interests, "country": data.country, "state": data.state})
+    chat_response = ChatResponse(answer)
     return chat_response.to_dict()
 
 @app.route('/queries', methods=['POST'])
