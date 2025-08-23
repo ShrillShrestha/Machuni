@@ -1,60 +1,92 @@
-import React, { useState } from 'react';
-import Sidebar from './components/Sidebar';
-import ChatTab from './components/ChatTab';
-import EventsTab from './components/EventsTab';
-import { UserPreferences } from './types';
+import React, { useState, useEffect } from "react";
+import Sidebar from "./components/Sidebar";
+import ChatTab from "./components/ChatTab";
+import EventsTab from "./components/EventsTab";
+import { UserPreferences } from "./types";
 
 function App() {
-  const [activeTab, setActiveTab] = useState<'chat' | 'events'>('chat');
+  const [currentPage, setCurrentPage] = useState<"chat" | "events">("chat");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [userPreferences, setUserPreferences] = useState<UserPreferences>({
-    visaStatus: '',
-    city: '',
-    interests: []
+    visaStatus: "",
+    city: "",
+    interests: [],
   });
 
+  // Prevent background scroll when the mobile sidebar is open
+  useEffect(() => {
+    const original = document.body.style.overflow;
+    if (isSidebarOpen) document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = original;
+    };
+  }, [isSidebarOpen]);
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-blue-900 to-slate-800 flex">
-      <Sidebar 
-        preferences={userPreferences}
-        onPreferencesChange={setUserPreferences}
-      />
-      
-      <div className="flex-1 flex flex-col">
-        {/* Tab Navigation */}
-        <div className="bg-slate-800/50 backdrop-blur-sm border-b border-slate-700">
-          <div className="flex space-x-1 p-4">
-            <button
-              onClick={() => setActiveTab('chat')}
-              className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
-                activeTab === 'chat'
-                  ? 'bg-blue-600 text-white shadow-lg'
-                  : 'text-slate-300 hover:text-white hover:bg-slate-700/50'
-              }`}
-            >
-              Immigration Assistant
-            </button>
-            <button
-              onClick={() => setActiveTab('events')}
-              className={`px-6 py-3 rounded-lg font-medium transition-all duration-200 ${
-                activeTab === 'events'
-                  ? 'bg-blue-600 text-white shadow-lg'
-                  : 'text-slate-300 hover:text-white hover:bg-slate-700/50'
-              }`}
-            >
-              Local Events
-            </button>
+    <div
+      className="
+        relative flex
+        min-h-screen min-h-[100dvh] min-h-[100svh]
+        bg-gradient-to-br from-blue-50 to-indigo-100
+      "
+      style={{ WebkitOverflowScrolling: "touch" }}
+    >
+      {/* Sidebar (persistent on desktop) */}
+      <div className="hidden lg:block">
+        <Sidebar
+          preferences={userPreferences}
+          onPreferencesChange={setUserPreferences}
+          currentPage={currentPage}
+          onPageChange={setCurrentPage}
+          isOpen={true}
+          onToggle={() => setIsSidebarOpen(!isSidebarOpen)}
+        />
+      </div>
+
+      {/* Main content */}
+      <main className="flex-1 flex flex-col w-full pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]">
+        {currentPage === "chat" ? (
+          <ChatTab
+            preferences={userPreferences}
+            onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
+          />
+        ) : (
+          <EventsTab
+            preferences={userPreferences}
+            onToggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)}
+          />
+        )}
+      </main>
+
+      {/* Mobile Sidebar Overlay (covers entire screen on iOS) */}
+      {isSidebarOpen && (
+        <div className="fixed inset-0 z-50 lg:hidden">
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/50"
+            onClick={() => setIsSidebarOpen(false)}
+          />
+          {/* Sliding panel */}
+          <div
+            className="
+              absolute left-0 top-0
+              h-[100dvh] w-72 max-w-[80vw]
+              bg-white shadow-2xl
+              overflow-y-auto
+              pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)]
+            "
+          >
+            <Sidebar
+              preferences={userPreferences}
+              onPreferencesChange={setUserPreferences}
+              currentPage={currentPage}
+              onPageChange={setCurrentPage}
+              isOpen={true}
+              onToggle={() => setIsSidebarOpen(false)}
+            />
           </div>
         </div>
-
-        {/* Tab Content */}
-        <div className="flex-1">
-          {activeTab === 'chat' ? (
-            <ChatTab preferences={userPreferences} />
-          ) : (
-            <EventsTab preferences={userPreferences} />
-          )}
-        </div>
-      </div>
+      )}
     </div>
   );
 }
