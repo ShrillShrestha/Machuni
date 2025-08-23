@@ -5,6 +5,7 @@ export default {
     extend: {
       colors: {
         customBlue: "#004AAD",
+        lighterCustomBlue: "#05326d3d",
       },
     },
   },
