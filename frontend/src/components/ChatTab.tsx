@@ -65,6 +65,9 @@ const ChatTab: React.FC<ChatTabProps> = ({ preferences, onToggleSidebar }) => {
 
   return (
     <div className="flex flex-col h-screen bg-blue-50/40 backdrop-blur-2xl shadow-xl">
+      {/* Background Gradient */}
+      <div className="absolute inset-0 bg-gradient-to-t from-customBlue to-white rounded-lg shadow-xl -z-10"></div>
+
       {/* Header (mobile only) */}
       <div className="lg:hidden bg-white/70 backdrop-blur-md border-b border-gray-200 p-4 sticky top-0 z-10 flex items-center gap-3">
         <button
