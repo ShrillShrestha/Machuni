@@ -1,6 +1,37 @@
 import datetime
 from pydantic import BaseModel
 
+# /chat
+class ChatRequest(BaseModel):
+    status: str
+    interests: list[str]
+    country: str
+    state: str
+    language_preferance: str
+    question: str
+        
+class ChatResponse:
+    def __init__(self, answer: str):
+        self.answer = answer
+    
+    def to_dict(self):
+        return {"answer": self.answer}
+
+# /persomalized-queries
+class PersonalizedQueryRequest(BaseModel):
+    status: str
+    interests: list[str]
+    country: str
+    state: str 
+    language_preferance: str
+
+class PersonalizedQueryResponse:
+    def __init__(self, queries: list[str]):
+        self.queries = queries
+
+    def to_dict(self):
+        return {"queries": self.queries}
+
 # /faq
 class QAPair:
     def __init__(self, question: str, answer: str):
@@ -20,21 +51,6 @@ class FaqResponse:
     
     def to_dict(self):
         return {"faqs": [faq.to_dict() for faq in self.faqs]}
-
-# /persomalized-queries
-class PersonalizedQueryRequest(BaseModel):
-    status: str
-    interests: list[str]
-    country: str
-    state: str 
-    language_preferance: str
-
-class PersonalizedQueryResponse:
-    def __init__(self, queries: list[str]):
-        self.queries = queries
-
-    def to_dict(self):
-        return {"queries": self.queries}
 
 # /recommendations
 class Location: 
@@ -113,19 +129,3 @@ class RecommendationResponse:
     
     def to_dict(self):
         return {"events": [event.to_dict() for event in self.events]}
-
-# /chat
-class ChatRequest(BaseModel):
-    status: str
-    interests: list[str]
-    country: str
-    state: str
-    language_preferance: str
-    question: str
-        
-class ChatResponse:
-    def __init__(self, answer: str):
-        self.answer = answer
-    
-    def to_dict(self):
-        return {"answer": self.answer}
