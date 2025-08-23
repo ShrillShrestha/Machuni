@@ -87,20 +87,20 @@ const Sidebar: React.FC<SidebarProps> = ({
         isOpen ? "translate-x-0" : "-translate-x-full"
       } flex flex-col`}
     >
-      <div className="flex-1 p-6 overflow-y-auto">
+      <div className="flex-1 p-2 overflow-y-auto">
         {/* Header with close button for mobile */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-xl shadow-lg">
-              <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center">
-                <span className="text-blue-600 font-bold text-lg">M</span>
-              </div>
-            </div>
-            <div>
-              <h2 className="text-xl font-bold text-gray-900">Ma Chu Ni</h2>
-              <p className="text-xs text-gray-500">Immigration Assistant</p>
-            </div>
+        <div className="flex items-center justify-between mb-9">
+          <div className="flex flex-col items-center justify-center mt-8 w-full">
+            <img
+              src="/images/logo/logo.png"
+              alt="CloudMonk Logo"
+              className="w-48 h-16 rounded-lg object-contain"
+            />
+            <p className="text-xs text-gray-500 text-center">
+              Immigration Assistant
+            </p>
           </div>
+          
           <button
             onClick={onToggle}
             className="lg:hidden p-2 text-gray-500 hover:text-gray-700"
@@ -119,8 +119,8 @@ const Sidebar: React.FC<SidebarProps> = ({
               onClick={() => handlePageChange("chat")}
               className={`w-full flex items-center gap-3 p-3 rounded-xl text-left transition-all duration-200 ${
                 currentPage === "chat"
-                  ? "bg-blue-600/40 text-black shadow-lg"
-                  : "text-gray-700 hover:bg-gray-50"
+                  ? "bg-customBlue text-white shadow-lg"
+                  : "text-gray-700 hover:bg-customBlue hover:text-white"
               }`}
             >
               <MessageSquare className="w-5 h-5" />
@@ -130,8 +130,8 @@ const Sidebar: React.FC<SidebarProps> = ({
               onClick={() => handlePageChange("events")}
               className={`w-full flex items-center gap-3 p-3 rounded-xl text-left transition-all duration-200 ${
                 currentPage === "events"
-                  ? "bg-blue-600/40 text-black shadow-lg"
-                  : "text-gray-700 hover:bg-gray-50"
+                  ? "bg-customBlue text-white shadow-lg"
+                  : "text-gray-700 hover:bg-customBlue hover:text-white"
               }`}
             >
               <Calendar className="w-5 h-5" />
