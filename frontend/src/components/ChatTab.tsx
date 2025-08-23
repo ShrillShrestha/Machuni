@@ -1,6 +1,13 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Bot, User, Menu, ArrowUp } from "lucide-react";
-import { Message, PresetQuestion, UserPreferences } from "../types";
+import {
+  Message,
+  PresetQuestion,
+  UserPreferences,
+  ChatRequest,
+  ChatResponse,
+} from "../types";
+import { useChatContext } from "../context/ChatContext";
 import PresetQuestions from "./PresetQuestions";
 import AvatarIdle from "./AvatarIdle";
 
@@ -20,6 +27,8 @@ const ChatTab: React.FC<ChatTabProps> = ({ preferences, onToggleSidebar }) => {
   ]);
   const [inputText, setInputText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const { chatHistory, addChatResponse, clearChatHistory } = useChatContext();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const hasUserMessages = messages.some((m) => m.sender === "user");
@@ -28,8 +37,11 @@ const ChatTab: React.FC<ChatTabProps> = ({ preferences, onToggleSidebar }) => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  const sendMessage = (text: string) => {
+  const sendMessage = async (text: string) => {
     if (!text.trim()) return;
+
+    // Clear any previous errors
+    setError(null);
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -42,16 +54,63 @@ const ChatTab: React.FC<ChatTabProps> = ({ preferences, onToggleSidebar }) => {
     setInputText("");
     setIsTyping(true);
 
-    setTimeout(() => {
+    try {
+      // Prepare the chat request payload
+      const chatRequest: ChatRequest = {
+        status: preferences.visaStatus || "student",
+        interests: preferences.interests || ["books"],
+        country: preferences.country || "United States",
+        state: preferences.state || "Texas",
+        language_preferance: preferences.language_preference || "English",
+        question: text.trim(),
+      };
+
+      // Make API call to the chat endpoint
+      const response = await fetch("http://127.0.0.1:5000/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(chatRequest),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const chatResponse: ChatResponse = await response.json();
+
+      // Store the response in chat history
+      addChatResponse(chatResponse);
+
+      // Add bot response to messages
       const botResponse: Message = {
         id: (Date.now() + 1).toString(),
-        text: "Here’s a helpful response for you.",
+        text: chatResponse.answer,
         sender: "bot",
         timestamp: new Date(),
       };
+
       setMessages((prev) => [...prev, botResponse]);
+    } catch (error) {
+      console.error("Error sending message:", error);
+
+      const errorMessage =
+        error instanceof Error ? error.message : "An unknown error occurred";
+      setError(errorMessage);
+
+      // Fallback response in case of error
+      const errorResponse: Message = {
+        id: (Date.now() + 1).toString(),
+        text: "I'm sorry, I encountered an error while processing your request. Please try again later.",
+        sender: "bot",
+        timestamp: new Date(),
+      };
+
+      setMessages((prev) => [...prev, errorResponse]);
+    } finally {
       setIsTyping(false);
-    }, 1200);
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -61,6 +120,59 @@ const ChatTab: React.FC<ChatTabProps> = ({ preferences, onToggleSidebar }) => {
 
   const handlePresetClick = (question: PresetQuestion) => {
     sendMessage(question.text);
+  };
+
+  const clearAllChat = () => {
+    setMessages([
+      {
+        id: "1",
+        text: "Hello! I'm your immigration assistant. I can help you with visa questions, legal processes, and finding the right resources. How can I assist you today?",
+        sender: "bot",
+        timestamp: new Date(),
+      },
+    ]);
+    clearChatHistory();
+  };
+
+  const getChatHistoryDisplay = () => {
+    if (chatHistory.length === 0) return null;
+
+    return (
+      <div className="mt-6 p-4 bg-white/60 backdrop-blur-sm rounded-2xl border border-gray-200">
+        <div className="flex items-center justify-between mb-3">
+          <h3 className="text-lg font-semibold text-gray-800">
+            Previous Responses
+          </h3>
+          <div className="flex gap-2">
+            <button
+              onClick={clearChatHistory}
+              className="px-3 py-1 text-sm bg-red-100 text-red-600 rounded-lg hover:bg-red-200 transition-colors"
+            >
+              Clear History
+            </button>
+            <button
+              onClick={clearAllChat}
+              className="px-3 py-1 text-sm bg-orange-100 text-orange-600 rounded-lg hover:bg-orange-200 transition-colors"
+            >
+              Clear All
+            </button>
+          </div>
+        </div>
+        <div className="space-y-3">
+          {chatHistory.map((response, index) => (
+            <div
+              key={index}
+              className="p-3 bg-blue-50/50 rounded-xl border border-blue-200"
+            >
+              <p className="text-sm text-gray-600 mb-1">
+                Response #{index + 1}
+              </p>
+              <p className="text-gray-800">{response.answer}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
   };
 
   return (
@@ -99,6 +211,28 @@ const ChatTab: React.FC<ChatTabProps> = ({ preferences, onToggleSidebar }) => {
 
             {/* FAQ + Input stacked */}
             <div className="w-full space-y-3">
+              {error && (
+                <div className="flex items-center gap-2 text-red-500 italic bg-red-50 p-3 rounded-xl border border-red-200">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-alert-triangle"
+                  >
+                    <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                    <path d="M12 9v4" />
+                    <path d="M12 17h.01" />
+                  </svg>
+                  <span>{error}</span>
+                </div>
+              )}
+
               <PresetQuestions
                 preferences={preferences}
                 onQuestionClick={handlePresetClick}
@@ -125,6 +259,9 @@ const ChatTab: React.FC<ChatTabProps> = ({ preferences, onToggleSidebar }) => {
                 </button>
               </form>
             </div>
+
+            {/* Chat History Display in Empty State */}
+            {getChatHistoryDisplay()}
           </div>
         </div>
       ) : (
@@ -179,10 +316,47 @@ const ChatTab: React.FC<ChatTabProps> = ({ preferences, onToggleSidebar }) => {
               ))}
 
               {isTyping && (
-                <div className="text-gray-600 italic">
-                  Assistant is typing...
+                <div className="flex items-center gap-2 text-gray-600 italic">
+                  <div className="flex space-x-1">
+                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
+                    <div
+                      className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                      style={{ animationDelay: "0.1s" }}
+                    ></div>
+                    <div
+                      className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                      style={{ animationDelay: "0.2s" }}
+                    ></div>
+                  </div>
+                  <span>Assistant is thinking...</span>
                 </div>
               )}
+
+              {error && (
+                <div className="flex items-center gap-2 text-red-500 italic bg-red-50 p-3 rounded-xl border border-red-200">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-alert-triangle"
+                  >
+                    <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                    <path d="M12 9v4" />
+                    <path d="M12 17h.01" />
+                  </svg>
+                  <span>{error}</span>
+                </div>
+              )}
+
+              {/* Chat History Display */}
+              {getChatHistoryDisplay()}
+
               <div ref={messagesEndRef} />
             </div>
           </div>

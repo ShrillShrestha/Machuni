@@ -29,18 +29,155 @@ const visaStatuses = [
   "Refugee Status",
 ];
 
-const cities = [
+const states = [
+  "Alabama",
+  "Alaska",
+  "Arizona",
+  "Arkansas",
+  "California",
+  "Colorado",
+  "Connecticut",
+  "Delaware",
+  "Florida",
+  "Georgia",
+  "Hawaii",
+  "Idaho",
+  "Illinois",
+  "Indiana",
+  "Iowa",
+  "Kansas",
+  "Kentucky",
+  "Louisiana",
+  "Maine",
+  "Maryland",
+  "Massachusetts",
+  "Michigan",
+  "Minnesota",
+  "Mississippi",
+  "Missouri",
+  "Montana",
+  "Nebraska",
+  "Nevada",
+  "New Hampshire",
+  "New Jersey",
+  "New Mexico",
   "New York",
-  "Los Angeles",
-  "Chicago",
-  "Houston",
-  "Phoenix",
-  "Philadelphia",
-  "San Antonio",
-  "San Diego",
-  "Dallas",
-  "San Jose",
+  "North Carolina",
+  "North Dakota",
+  "Ohio",
+  "Oklahoma",
+  "Oregon",
+  "Pennsylvania",
+  "Rhode Island",
+  "South Carolina",
+  "South Dakota",
+  "Tennessee",
+  "Texas",
+  "Utah",
+  "Vermont",
+  "Virginia",
+  "Washington",
+  "West Virginia",
+  "Wisconsin",
+  "Wyoming",
 ];
+
+const countries = [
+  "United States",
+  "Canada",
+  "Mexico",
+  "United Kingdom",
+  "Germany",
+  "France",
+  "Italy",
+  "Spain",
+  "Netherlands",
+  "Belgium",
+  "Switzerland",
+  "Austria",
+  "Sweden",
+  "Norway",
+  "Denmark",
+  "Finland",
+  "Poland",
+  "Czech Republic",
+  "Hungary",
+  "Slovakia",
+  "Slovenia",
+  "Croatia",
+  "Serbia",
+  "Bosnia and Herzegovina",
+  "Montenegro",
+  "North Macedonia",
+  "Albania",
+  "Greece",
+  "Bulgaria",
+  "Romania",
+  "Moldova",
+  "Ukraine",
+  "Belarus",
+  "Lithuania",
+  "Latvia",
+  "Estonia",
+  "Russia",
+  "Georgia",
+  "Armenia",
+  "Azerbaijan",
+  "Turkey",
+  "Cyprus",
+  "Malta",
+  "Iceland",
+  "Ireland",
+  "Portugal",
+  "Luxembourg",
+  "Liechtenstein",
+  "Monaco",
+  "Andorra",
+  "San Marino",
+  "Vatican City",
+  "Australia",
+  "New Zealand",
+  "Japan",
+  "South Korea",
+  "China",
+  "India",
+  "Pakistan",
+  "Bangladesh",
+  "Sri Lanka",
+  "Nepal",
+  "Bhutan",
+  "Myanmar",
+  "Thailand",
+  "Laos",
+  "Cambodia",
+  "Vietnam",
+  "Malaysia",
+  "Singapore",
+  "Indonesia",
+  "Philippines",
+  "Brunei",
+  "East Timor",
+  "Papua New Guinea",
+  "Fiji",
+  "Vanuatu",
+  "Solomon Islands",
+  "New Caledonia",
+  "Brazil",
+  "Argentina",
+  "Chile",
+  "Peru",
+  "Bolivia",
+  "Paraguay",
+  "Uruguay",
+  "Ecuador",
+  "Colombia",
+  "Venezuela",
+  "Guyana",
+  "Suriname",
+  "French Guiana",
+];
+
+const languages = ["English", "Hindi", "Nepali"];
 
 const interests = [
   "Job Search",
@@ -100,7 +237,7 @@ const Sidebar: React.FC<SidebarProps> = ({
               Immigration Assistant
             </p>
           </div>
-          
+
           <button
             onClick={onToggle}
             className="lg:hidden p-2 text-gray-500 hover:text-gray-700"
@@ -168,21 +305,65 @@ const Sidebar: React.FC<SidebarProps> = ({
           </select>
         </div>
 
-        {/* City */}
+        {/* State */}
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-4">
             <MapPin className="w-4 h-4 text-green-400" />
-            <label className="text-sm font-medium text-gray-600">City</label>
+            <label className="text-sm font-medium text-gray-600">State</label>
           </div>
           <select
-            value={preferences.city}
-            onChange={(e) => updatePreference("city", e.target.value)}
+            value={preferences.state}
+            onChange={(e) => updatePreference("state", e.target.value)}
             className="w-full p-3 bg-white border border-gray-200 rounded-xl text-gray-900 focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 shadow-sm transition-all duration-200"
           >
-            <option value="">Select your city</option>
-            {cities.map((city) => (
-              <option key={city} value={city}>
-                {city}
+            <option value="">Select your state</option>
+            {states.map((state) => (
+              <option key={state} value={state}>
+                {state}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Country */}
+        <div className="mb-8">
+          <div className="flex items-center gap-2 mb-4">
+            <MapPin className="w-4 h-4 text-blue-400" />
+            <label className="text-sm font-medium text-gray-600">Country</label>
+          </div>
+          <select
+            value={preferences.country}
+            onChange={(e) => updatePreference("country", e.target.value)}
+            className="w-full p-3 bg-white border border-gray-200 rounded-xl text-gray-900 focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 shadow-sm transition-all duration-200"
+          >
+            <option value="">Select your country</option>
+            {countries.map((country) => (
+              <option key={country} value={country}>
+                {country}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Language Preference */}
+        <div className="mb-8">
+          <div className="flex items-center gap-2 mb-4">
+            <MessageSquare className="w-4 h-4 text-purple-400" />
+            <label className="text-sm font-medium text-gray-600">
+              Language Preference
+            </label>
+          </div>
+          <select
+            value={preferences.language_preference}
+            onChange={(e) =>
+              updatePreference("language_preference", e.target.value)
+            }
+            className="w-full p-3 bg-white border border-gray-200 rounded-xl text-gray-900 focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 shadow-sm transition-all duration-200"
+          >
+            <option value="">Select your language</option>
+            {languages.map((language) => (
+              <option key={language} value={language}>
+                {language}
               </option>
             ))}
           </select>
