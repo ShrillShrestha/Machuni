@@ -1,0 +1,127 @@
+[
+  {
+    "question": "Can F1 students work in the U.S.?",
+    "answer": "Yes, on-campus work (up to 20 hours/week during the semester) is allowed. Off-campus work requires authorization (OPT or CPT).",
+    "visa_type": "F1"
+  },
+  {
+    "question": "What is OPT (Optional Practical Training)?",
+    "answer": "OPT allows F1 students to work in the U.S. for up to 12 months after completing their degree (STEM majors may qualify for a 24-month extension).",
+    "visa_type": "F1"
+  },
+  {
+    "question": "Can I change my university after arriving in the U.S.?",
+    "answer": "Yes, but you must notify USCIS and get your SEVIS record transferred.",
+    "visa_type": "F1"
+  },
+  {
+    "question": "How long can I stay in the U.S. after my F1 program ends?",
+    "answer": "You have a 60-day grace period to leave, apply for OPT, or transfer to another program.",
+    "visa_type": "F1"
+  },
+  {
+    "question": "Can I bring my spouse or children on an F1 visa?",
+    "answer": "Yes, dependents can come on F2 visas, but they cannot work.",
+    "visa_type": "F1"
+  },
+  {
+    "question": "How long is the H1B visa valid?",
+    "answer": "Initially up to 3 years, renewable up to 6 years (with some exceptions if green card processing is pending).",
+    "visa_type": "H1B"
+  },
+  {
+    "question": "What is the H1B lottery?",
+    "answer": "Since applications exceed the annual cap, USCIS randomly selects registrations through a lottery system.",
+    "visa_type": "H1B"
+  },
+  {
+    "question": "Can I change jobs on H1B?",
+    "answer": "Yes, but your new employer must file an H1B transfer petition. You can start working once USCIS receives the petition.",
+    "visa_type": "H1B"
+  },
+  {
+    "question": "Can H1B dependents work in the U.S.?",
+    "answer": "Spouses on H4 visas can work if the H1B holder has an approved I-140 (green card stage).",
+    "visa_type": "H1B"
+  },
+  {
+    "question": "What happens if I lose my job on H1B?",
+    "answer": "You typically have a 60-day grace period to find a new employer, change status, or leave the U.S.",
+    "visa_type": "H1B"
+  },
+  {
+    "question": "What is the difference between B1 and B2 visas?",
+    "answer": "B1 is for business (meetings, conferences), while B2 is for tourism, medical, or family visits.",
+    "visa_type": "B1/B2"
+  },
+  {
+    "question": "How long can I stay in the U.S. on a B1/B2 visa?",
+    "answer": "Typically up to 6 months per visit, as determined by the officer at the port of entry.",
+    "visa_type": "B1/B2"
+  },
+  {
+    "question": "Can I work on a B1/B2 visa?",
+    "answer": "No, employment is not allowed.",
+    "visa_type": "B1/B2"
+  },
+  {
+    "question": "Can I study on a B2 visa?",
+    "answer": "Short, non-credit recreational courses are allowed, but full-time academic study requires an F1 visa.",
+    "visa_type": "B1/B2"
+  },
+  {
+    "question": "How long is a B1/B2 visa valid?",
+    "answer": "Validity depends on your nationality, often 5–10 years, but each visit is limited in duration by CBP.",
+    "visa_type": "B1/B2"
+  },
+  {
+    "question": "Can I extend my stay on a B1/B2 visa?",
+    "answer": "Yes, you can apply for an extension with USCIS before your current stay expires.",
+    "visa_type": "B1/B2"
+  },
+  {
+    "question": "Do I need a return ticket for a B1/B2 visa entry?",
+    "answer": "It’s recommended to show proof of return plans, but not always mandatory.",
+    "visa_type": "B1/B2"
+  },
+  {
+    "question": "How long does it take to get a Green Card?",
+    "answer": "Processing times vary from a few months to several years, depending on the category and country of origin.",
+    "visa_type": "Green Card/PR"
+  },
+  {
+    "question": "Can Green Card holders travel outside the U.S.?",
+    "answer": "Yes, but absences longer than 6 months may affect your status. Trips over 1 year may require a re-entry permit.",
+    "visa_type": "Green Card/PR"
+  },
+  {
+    "question": "Can Green Card holders sponsor family members?",
+    "answer": "Yes, permanent residents can sponsor spouses and unmarried children. Citizens can sponsor more family categories.",
+    "visa_type": "Green Card/PR"
+  },
+  {
+    "question": "When can I apply for U.S. citizenship after getting a Green Card?",
+    "answer": "Generally after 5 years (3 years if married to a U.S. citizen).",
+    "visa_type": "Green Card/PR"
+  },
+  {
+    "question": "Can I lose my Green Card?",
+    "answer": "Yes, through abandonment (living outside the U.S. too long), committing certain crimes, or fraud in obtaining it.",
+    "visa_type": "Green Card/PR"
+  },
+  {
+    "question": "What is an initial transfer for F1 students?",
+    "answer": "An initial transfer happens when an F1 student changes their school before arriving in the U.S. or soon after entering. The SEVIS record must be transferred to the new school before classes begin.",
+    "visa_type": "F1"
+  },
+  {
+    "question": "How does an H1B job switch work?",
+    "answer": "If you want to change jobs while on an H1B, your new employer must file an H1B transfer petition with USCIS. You may start working as soon as USCIS receives the petition, even before approval, but approval is recommended for travel and long-term security.",
+    "visa_type": "H1B"
+  },
+  {
+    "question": "Do I need travel or medical insurance for a B1/B2 visa?",
+    "answer": "Travel or health insurance is not mandatory for B1/B2 visitors, but it is highly recommended. U.S. healthcare is expensive, and having insurance can protect you in case of emergencies.",
+    "visa_type": "B1/B2"
+  }
+]
