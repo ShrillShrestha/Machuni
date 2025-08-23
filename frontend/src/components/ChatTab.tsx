@@ -28,7 +28,7 @@ const ChatTab: React.FC<ChatTabProps> = ({ preferences, onToggleSidebar }) => {
   const [inputText, setInputText] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  // const { chatHistory, addChatResponse, clearChatHistory } = useChatContext();
+  const { addChatResponse } = useChatContext();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const hasUserMessages = messages.some((m) => m.sender === "user");
