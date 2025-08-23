@@ -113,7 +113,7 @@ def process_pdf(pdf_path):
     for i, chunk in enumerate(chunks):
         collection.add(
             documents=[chunk],
-            embeddings=[embeddings[i]][0],
+            embeddings=[embeddings[i][0]],
             metadatas=[{
                 "source": pdf_path.name,
                 "language": detect_lang(chunk),

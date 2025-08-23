@@ -4,7 +4,6 @@ from custom_type import *
 import json
 from request_parser import parse_request
 from query import ask_question, generate_answer
-
 app = Flask(__name__)
 app.config['WTF_CSRF_ENABLED'] = False
 CORS(app)

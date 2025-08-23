@@ -60,8 +60,6 @@ def ask_question(question, n_results=5):
 
     return "\n".join(documents)  # This is used to have LLM answers instead of source paragraphs
 
-
-
 # 4. Use Ollama LLM to generate answer
 def generate_answer(context, question):
     prompt = f"""You are an immigration assistant for Nepali immigrants in the US. Use the context below to answer the question clearly and precisely.
@@ -77,13 +75,19 @@ def generate_answer(context, question):
     response = requests.post(
         "http://localhost:11434/api/generate",
         json={
-            "model": "mistral",  
+            "model": "mistral",
             "prompt": prompt,
             "stream": False
         }
     )
     response.raise_for_status()
     return response.json()["response"]
+
+def query(input):
+    if input:
+        context = ask_question(input)
+        return generate_answer(context, input)
+    return None
 
 # 5. CLI
 if __name__ == "__main__":
