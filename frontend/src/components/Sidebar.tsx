@@ -34,6 +34,8 @@ const Sidebar: React.FC<SidebarProps> = ({
     { label: "Student (F1)", value: "F1" },
     { label: "Student (M1)", value: "M1" },
     { label: "Exchange Visitor (J1)", value: "J1" },
+    { label: "Business (B1)", value: "B1" },
+    { label: "Tourism (B2)", value: "B2" },
     { label: "Temporary Worker (H1B)", value: "H1B" },
     { label: "Dependent (F2)", value: "F2" },
     { label: "Dependent (H4)", value: "H4" },
@@ -262,6 +264,34 @@ const Sidebar: React.FC<SidebarProps> = ({
           </select>
         </div>
 
+        {/* Country */}
+        <div className="mb-8">
+          <div className="flex items-center gap-2 mb-4">
+            <Globe className="w-4 h-4 text-blue-400" />
+            <label className="text-sm font-medium text-gray-600">Country</label>
+          </div>
+          <select
+            defaultValue="United States"
+            value={preferences.country}
+            onChange={(e) =>
+              onPreferencesChange({
+                ...preferences,
+                country: e.target.value,
+              })
+            }
+            className="w-full p-3 bg-white border border-gray-200 rounded-xl text-gray-900 focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 shadow-sm transition-all duration-200"
+          >
+            <option value="" disabled>
+              Select your country
+            </option>
+            {countries.map((country) => (
+              <option key={country} value={country}>
+                {country}
+              </option>
+            ))}
+          </select>
+        </div>
+
         {/* State */}
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-4">
@@ -282,31 +312,6 @@ const Sidebar: React.FC<SidebarProps> = ({
             {states.map((state) => (
               <option key={state} value={state}>
                 {state}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* Country */}
-        <div className="mb-8">
-          <div className="flex items-center gap-2 mb-4">
-            <Globe className="w-4 h-4 text-blue-400" />
-            <label className="text-sm font-medium text-gray-600">Country</label>
-          </div>
-          <select
-            value={preferences.country}
-            onChange={(e) =>
-              onPreferencesChange({
-                ...preferences,
-                country: e.target.value,
-              })
-            }
-            className="w-full p-3 bg-white border border-gray-200 rounded-xl text-gray-900 focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500/40 shadow-sm transition-all duration-200"
-          >
-            <option value="">Select your country</option>
-            {countries.map((country) => (
-              <option key={country} value={country}>
-                {country}
               </option>
             ))}
           </select>

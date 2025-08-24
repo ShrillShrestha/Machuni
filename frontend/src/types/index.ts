@@ -57,6 +57,18 @@ export interface FAQItem {
   category?: string;
 }
 
+export interface PresetRequest {
+  status: string;
+  interests: string[];
+  country: string;
+  state: string;
+  language_preferance: string;
+}
+
+export interface PresetResponse {
+  queries: string[];
+}
+
 export interface FAQResponse {
   faqs: FAQItem[];
 }
