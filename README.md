@@ -42,6 +42,8 @@ MaChuNi is a web app designed to help students and newcomers from Nepal adapt sm
   - Navigate to the `backend` folder using `cd backend` from your project folder
   - Create a Python virtual environment using `python3 -m venv <environment_name>`
   - Activate your virtual environment using `source <environment_name>/bin/activate`
+  - Install the embedding model by running `ollama pull nomic-embed-text`
+  - Install generative model by running `ollama pull mistral`
   - Run `pip install -r requirements.txt` to install all required modules
   - Navigate to the app folder using `cd app`
   - Run `flask run` to run your backend server
