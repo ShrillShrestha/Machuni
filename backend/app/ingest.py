@@ -60,7 +60,7 @@ def extract_text(pdf_path):
     doc = fitz.open(pdf_path)
     return "\n".join([p.get_text() for p in doc])
 
-def split_chunks(text, size=500):
+def split_chunks(text, size=777):
     words = text.split()
     return [" ".join(words[i:i + size]) for i in range(0, len(words), size)]
 

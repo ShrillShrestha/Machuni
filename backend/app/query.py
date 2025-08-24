@@ -41,7 +41,7 @@ def ollama_embed(text):
     return response.json()["embeddings"][0]
 
 # 3. Ask question and retrieve top chunks
-def ask_question(question, n_results=5):
+def ask_question(question, n_results=3):
     embedding = ollama_embed(question)
     if isinstance(embedding[0], list):
         embedding = embedding[0]
@@ -123,7 +123,8 @@ def generate_answer_with_context(question, context, language="English", filters=
                 "messages": [
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": user_message}
-                ]
+                ],
+                "temperature": 0.2
             }
         )
         response.raise_for_status()
@@ -147,7 +148,7 @@ def generate_answer(context, question):
     response = requests.post(
         "http://localhost:11434/api/generate",
         json={
-            "model": "gemma3",  
+            "model": "mistral",  
             "prompt": prompt,
             "stream": True
         }
@@ -210,7 +211,7 @@ def get_starter_questions(status: str, country: str, state: str, language: str =
         response = requests.post(
             "http://localhost:11434/api/chat",
             json={
-                "model": "gemma3",
+                "model": "mistral",
                 "stream": False,
                 "messages": [
                     {"role": "system", "content": system_prompt},
