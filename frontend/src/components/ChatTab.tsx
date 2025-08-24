@@ -61,7 +61,7 @@ const ChatTab: React.FC<ChatTabProps> = ({ preferences, onToggleSidebar }) => {
         interests: preferences.interests,
         country: preferences.country,
         state: preferences.state,
-        language_preferance: preferences.language_preference,
+        language_preferance: preferences.language_preference || "English",
         question: text.trim(),
       };
 
