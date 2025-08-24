@@ -48,11 +48,11 @@ MaChuNi is a web app designed to help students and newcomers from Nepal adapt sm
 
 ## ✨ Contributors 
 Shoutout goes to these wonderful people:
-- [Anuj Bhattarai](https://github.com/akin-bh)
-- [Mandira Ghimire](https://github.com/mandiragh)
-- [Shrill Shrestha](https://github.com/ShrillShrestha)
-- [Sujal Ratna Tamrakar](https://github.com/SujalRatnaTamrakar)
-- [Tanusha Ayer](https://github.com/tanushaayer)
+- [Anuj Bhattarai](https://github.com/akin-bh) - Frontend + Presentation
+- [Mandira Ghimire](https://github.com/mandiragh) - ML System
+- [Shrill Shrestha](https://github.com/ShrillShrestha) - Backend Dev
+- [Sujal Ratna Tamrakar](https://github.com/SujalRatnaTamrakar) - ML System
+- [Tanusha Ayer](https://github.com/tanushaayer) - Frontend Dev
 
 
   
