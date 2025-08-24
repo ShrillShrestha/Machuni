@@ -74,19 +74,8 @@ def generate_answer_with_context(question, context, language="English", filters=
     # --- NEW SECTION START ---
     
     [OUTPUT FORMATTING]
-    1.  **HTML Markup Required:** You MUST format your entire response using simple HTML markup. Do not output plain text.
-    2.  **Allowed Tags:** Use standard tags like `<p>` for paragraphs, `<ul>` and `<li>` for bullet points, `<strong>` for bolding important terms, and `<em>` for emphasis. For longer answers with sections, you can use `<h2>` or `<h3>` for headings.
-    3.  **Content Only:** Your response should be an HTML fragment. DO NOT include `<html>`, `<head>`, or `<body>` tags. Do not use CSS or JavaScript.
-    4.  **Example Response:**
-        ```html
-        <h2>Visa Renewal Process</h2>
-        <p>To renew your visa, you must follow these steps:</p>
-        <ul>
-            <li>Complete the <strong>DS-160 form</strong> online.</li>
-            <li>Pay the application fee.</li>
-            <li>Schedule an appointment for an interview.</li>
-        </ul>
-        ```
+    - **Format:** Respond in plain string format without any markdown or code blocks. DO NOT include any markdown or html tags!
+    - **Example response:** This is the sample response. loream ipsum dolor sit amet. loream ipsum dolor sit amet. DO NOT have any context around responding in your response.
     
     # --- NEW SECTION END ---
     
@@ -129,7 +118,7 @@ def generate_answer_with_context(question, context, language="English", filters=
         response = requests.post(
             "http://localhost:11434/api/chat",
             json={
-                "model": "gemma3",
+                "model": "mistral",
                 "stream": False,
                 "messages": [
                     {"role": "system", "content": system_prompt},
