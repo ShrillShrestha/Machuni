@@ -1,77 +1,64 @@
-import React from "react";
-import { Sparkles } from "lucide-react";
-import { PresetQuestion, UserPreferences } from "../types";
+import React, { useEffect, useState } from "react";
+import { PresetRequest, PresetResponse, UserPreferences } from "../types";
 
 interface PresetQuestionsProps {
   preferences: UserPreferences;
-  onQuestionClick: (question: PresetQuestion) => void;
+  onQuestionClick: (question: string) => void;
   compact?: boolean;
 }
-
-const allPresetQuestions: PresetQuestion[] = [
-  {
-    id: "1",
-    text: "How do I apply for a work permit?",
-    category: "Work Authorization",
-    visaStatuses: ["Student Visa", "Asylum Seeker", "Refugee Status"],
-  },
-  {
-    id: "2",
-    text: "What documents do I need for green card application?",
-    category: "Permanent Residence",
-    visaStatuses: ["Work Visa", "Student Visa", "Asylum Seeker"],
-  },
-  {
-    id: "3",
-    text: "How long does the citizenship process take?",
-    category: "Citizenship",
-    visaStatuses: ["Permanent Resident"],
-  },
-  {
-    id: "4",
-    text: "Can I travel outside the country with my current status?",
-    category: "Travel",
-    visaStatuses: [
-      "Student Visa",
-      "Work Visa",
-      "Asylum Seeker",
-      "Permanent Resident",
-    ],
-  },
-  {
-    id: "5",
-    text: "How do I extend my visa?",
-    category: "Visa Extension",
-    visaStatuses: ["Student Visa", "Work Visa", "Tourist Visa"],
-  },
-  {
-    id: "6",
-    text: "What are my rights as a refugee?",
-    category: "Rights",
-    visaStatuses: ["Refugee Status", "Asylum Seeker"],
-  },
-  {
-    id: "7",
-    text: "How do I change my visa status?",
-    category: "Status Change",
-    visaStatuses: ["Student Visa", "Tourist Visa", "Work Visa"],
-  },
-  {
-    id: "8",
-    text: "What healthcare benefits am I eligible for?",
-    category: "Benefits",
-    visaStatuses: ["Permanent Resident", "Refugee Status", "Asylum Seeker"],
-  },
-];
 
 const PresetQuestions: React.FC<PresetQuestionsProps> = ({
   preferences,
   onQuestionClick,
   compact = false,
 }) => {
-  const relevantQuestions = allPresetQuestions.slice(0, 3);
+  const [presetQuestions, setPresetQuestions] = useState([
+    "What documents do I need for green card application?",
+  ]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const fetchPresetQuestions = async () => {
+    setIsLoading(true);
+    setError(null);
 
-  if (relevantQuestions.length === 0) return null;
+    try {
+      const requestBody: PresetRequest = {
+        status: preferences.visaStatus ? preferences.visaStatus : "",
+        interests: [],
+        country: "United States",
+        state: preferences.state ? preferences.state : "",
+        language_preferance: "English",
+      };
+
+      const response = await fetch("http://127.0.0.1:5000/queries", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data: PresetResponse = await response.json();
+      console.log({ data });
+      setPresetQuestions(data.queries);
+    } catch (error) {
+      console.error("Error fetching FAQs:", error);
+      setError(error instanceof Error ? error.message : "Failed to fetch FAQs");
+      setPresetQuestions(["How do I apply for a work permit?"]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  useEffect(() => {
+    fetchPresetQuestions();
+    console.log(presetQuestions);
+  }, [preferences]);
+
+  if (presetQuestions.length === 0) return null;
 
   return (
     <div
@@ -79,13 +66,21 @@ const PresetQuestions: React.FC<PresetQuestionsProps> = ({
         compact ? "py-1" : "p-3"
       } scrollbar-hide`}
     >
-      {relevantQuestions.map((question) => (
+      {isLoading && (
         <button
-          key={question.id}
+          disabled
+          className="flex-shrink-0 px-3 py-1 bg-gray-100 hover:bg-blue-50 text-md sm:text-sm rounded-xl text-gray-700 hover:text-blue-600 border border-gray-200"
+        >
+          Loading Presets....
+        </button>
+      )}
+      {presetQuestions.map((question, index) => (
+        <button
+          key={index}
           onClick={() => onQuestionClick(question)}
           className="flex-shrink-0 px-3 py-1 bg-gray-100 hover:bg-blue-50 text-md sm:text-sm rounded-xl text-gray-700 hover:text-blue-600 border border-gray-200"
         >
-          {question.text}
+          {question}
         </button>
       ))}
     </div>

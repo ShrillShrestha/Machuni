@@ -17,7 +17,7 @@ function App() {
     visaStatus: "",
     state: "",
     country: "",
-    language_preference: "",
+    language_preference: "English",
     interests: [],
   });
 
