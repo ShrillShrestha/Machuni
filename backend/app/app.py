@@ -1,5 +1,7 @@
-from flask import Flask
+from flask import Flask, request, jsonify
 from flask_cors import CORS
+
+from backend.app.ingest import process_uploaded_pdfs
 from custom_type import *
 import json
 from request_parser import parse_request
@@ -9,11 +11,36 @@ import re
 app = Flask(__name__)
 app.config['WTF_CSRF_ENABLED'] = False
 CORS(app)
+MAX_FILES = 3  # Updated to 3 files
+ALLOWED_EXTENSIONS = {'pdf'}
 
+def allowed_file(filename):
+    """Checks if the file's extension is allowed."""
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 @app.route('/chat', methods=['POST'])
 @parse_request(ChatRequest)
 def chat(data: ChatRequest):
     question = data.question
+    uploaded_files = request.files.getlist('files')
+    # --- Validate File Count ---
+    if len(uploaded_files) > MAX_FILES:
+        return jsonify({"error": f"You can upload a maximum of {MAX_FILES} files."}), 400
+
+    # --- Process and Validate Files ---
+    file_contents = []
+    for file in uploaded_files:
+        if file and file.filename:
+            # Check if the file is a PDF
+            if not allowed_file(file.filename):
+                return jsonify({"error": f"Invalid file type: '{file.filename}'. Only PDF files are allowed."}), 400
+
+            file_contents.append(file.read())
+
+    try:
+        process_uploaded_pdfs(file_contents)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
 
     context = ask_question(question)
     answer = generate_answer_with_context(question, context, data.language_preferance, {"status": data.status, "interests": data.interests, "country": data.country, "state": data.state})

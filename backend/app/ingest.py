@@ -3,7 +3,7 @@ import fitz  # PyMuPDF
 import chromadb
 from chromadb.config import Settings
 from chromadb.utils import embedding_functions
-from chromadb import PersistentClient  
+from chromadb import PersistentClient
 from langdetect import detect
 import uuid
 import re
@@ -47,11 +47,18 @@ chroma_client = PersistentClient(
     settings=Settings(anonymized_telemetry=False)
 )
 
+chroma_temp = chromadb.EphemeralClient()
+
 # 4. Create or load collection
 embedding_function = OllamaEmbeddingFunction()
 
 collection = chroma_client.get_or_create_collection(
     name="immigration_docs",
+    embedding_function=embedding_function
+)
+
+temp_collection = chroma_temp.get_or_create_collection(
+    name="temp_docs",
     embedding_function=embedding_function
 )
 
@@ -123,6 +130,27 @@ def process_pdf(pdf_path):
         )
 
     print(f" Ingested {pdf_path.name}")
+    print(f" Chunked into {len(chunks)} parts\n")
+
+def process_uploaded_pdfs(raw):
+    print(f" Processing:")
+    print(f" Characters: {len(raw)}")
+
+    cleaned = clean_text(raw)
+    chunks = split_chunks(cleaned)
+    embeddings = embedding_function(chunks)
+
+    for i, chunk in enumerate(chunks):
+        temp_collection.add(
+            documents=[chunk],
+            embeddings=[embeddings[i]][0],
+            metadatas=[{
+                "language": detect_lang(chunk),
+            }],
+            ids=[str(uuid.uuid4())]
+        )
+
+    print(f" Ingested uploaded  files")
     print(f" Chunked into {len(chunks)} parts\n")
 
 # 7. Run on all PDFs

@@ -1,8 +1,10 @@
+import chromadb
 from chromadb import PersistentClient
 from chromadb.config import Settings
 from pathlib import Path
 import requests
 import os
+
 os.environ["CHROMA_TELEMETRY_DISABLED"] = "1"
 
 
@@ -15,7 +17,10 @@ chroma_client = PersistentClient(
     settings=Settings(anonymized_telemetry=False)
 )
 
+chroma_temp = chromadb.EphemeralClient()
+
 collection = chroma_client.get_collection(name="immigration_docs")
+temp_collection = chroma_temp.get_collection(name="temp_docs")
 
 # 2. Ollama Embedding Function 
 def ollama_embed(text):
@@ -64,20 +69,29 @@ def ask_question(question, n_results=5):
 def generate_answer_with_context(question, context, language="English", filters=None):
     """
     Generates a response using a structured system prompt and a chat-based model endpoint.
-    The response is formatted as an HTML fragment.
+    The response is formatted as a PURE HTML fragment, without any markdown.
     """
+    file_context = ""
+    if temp_collection:
+        print("\n🔎 Searching in user-uploaded files...")
+        # Use the helper function to get context from the temp collection
+        file_context = get_context_from_temp_collection(question, temp_collection, n_results=3)
+        if file_context:
+            print(f"\n✅ Found relevant context in uploaded files:\n---\n{file_context}\n---")
+        else:
+            print("\nℹ️ No relevant context found in uploaded files.")
 
     system_prompt = """
     [PERSONA]
     You are an expert AI assistant named 'Sahayogi', designed to help Nepali migrant workers. Your purpose is to provide safe, accurate, and helpful information based ONLY on the verified documents provided to you. You are supportive, clear, and professional. Your primary goal is to empower users with reliable information.
     
-    # --- NEW SECTION START ---
-    
     [OUTPUT FORMATTING]
     1.  **HTML Markup Required:** You MUST format your entire response using simple HTML markup. Do not output plain text.
-    2.  **Allowed Tags:** Use standard tags like `<p>` for paragraphs, `<ul>` and `<li>` for bullet points, `<strong>` for bolding important terms, and `<em>` for emphasis. For longer answers with sections, you can use `<h2>` or `<h3>` for headings.
-    3.  **Content Only:** Your response should be an HTML fragment. DO NOT include `<html>`, `<head>`, or `<body>` tags. Do not use CSS or JavaScript.
-    4.  **Example Response:**
+    2.  **No Markdown Wrappers:** # --- KEY ADDITION ---
+        Your response MUST be the raw HTML fragment itself. It MUST NOT be enclosed in Markdown code blocks (like ```html ... ```). The response must start directly with an HTML tag (e.g., `<p>`) and end with one.
+    3.  **Allowed Tags:** Use standard tags like `<p>` for paragraphs, `<ul>` and `<li>` for bullet points, `<strong>` for bolding important terms, and `<em>` for emphasis. For longer answers with sections, you can use `<h2>` or `<h3>` for headings.
+    4.  **Content Only:** Your response should be an HTML fragment. DO NOT include `<html>`, `<head>`, or `<body>` tags. Do not use CSS or JavaScript.
+    5.  **Example Response:**
         ```html
         <h2>Visa Renewal Process</h2>
         <p>To renew your visa, you must follow these steps:</p>
@@ -87,8 +101,6 @@ def generate_answer_with_context(question, context, language="English", filters=
             <li>Schedule an appointment for an interview.</li>
         </ul>
         ```
-    
-    # --- NEW SECTION END ---
     
     [CORE RULES]
     1.  **Strictly Grounded:** You MUST base your entire answer on the information found within the `<CONTEXT>` section.
@@ -106,7 +118,7 @@ def generate_answer_with_context(question, context, language="English", filters=
         filter_string = "None"
 
     user_message = f"""
-    Here is the information for the user's request. Please follow all rules in your system prompt, especially the HTML formatting rules.
+    Here is the information for the user's request. Please follow all rules in your system prompt, especially the HTML formatting and no-markdown rules.
     
     <QUERY>
     {question}
@@ -123,6 +135,11 @@ def generate_answer_with_context(question, context, language="English", filters=
     <CONTEXT>
     {context}
     </CONTEXT>
+
+    <FILE_CONTEXT>
+    This is additional context provided by the user from their uploaded files. Prioritize this information if it is relevant.
+    {file_context}
+    </FILE_CONTEXT>
     """
 
     try:
@@ -138,7 +155,14 @@ def generate_answer_with_context(question, context, language="English", filters=
             }
         )
         response.raise_for_status()
-        return response.json()["message"]["content"]
+        # Clean up the response just in case the model still adds the markdown wrapper
+        text_response = response.json()["message"]["content"]
+        if text_response.strip().startswith("```html"):
+            text_response = text_response.strip()[7:]  # remove ```html
+        if text_response.strip().endswith("```"):
+            text_response = text_response.strip()[:-3]  # remove ```
+        return text_response.strip()
+
     except requests.exceptions.RequestException as e:
         print(f"An API error occurred: {e}")
         return "<p>Sorry, I am having trouble connecting to the service.</p>"
@@ -236,6 +260,37 @@ def get_starter_questions(status: str, country: str, state: str, language: str =
         print(f"An API error occurred: {e}")
         return "<p>Sorry, I am having trouble connecting to the service.</p>"
 
+
+def get_context_from_temp_collection(question: str, collection, n_results: int = 3) -> str:
+    """
+    Queries a ChromaDB collection for relevant documents based on a question.
+
+    Args:
+        question: The user's question.
+        collection: The ChromaDB collection object to query.
+        n_results: The number of results to retrieve.
+
+    Returns:
+        A string containing the concatenated documents for context.
+    """
+    # Assuming ollama_embed function is available in this scope
+    embedding = ollama_embed(question)
+
+    # Ensure embedding is a flat list
+    if isinstance(embedding, list) and len(embedding) > 0 and isinstance(embedding[0], list):
+        embedding = embedding[0]
+
+    # Handle cases where the collection might be empty or query fails
+    try:
+        results = collection.query(
+            query_embeddings=[embedding],
+            n_results=n_results
+        )
+        documents = results.get('documents', [[]])[0]
+        return "\n".join(documents)
+    except Exception as e:
+        print(f"Error querying collection '{collection.name}': {e}")
+        return ""
 
 # 5. CLI
 if __name__ == "__main__":
