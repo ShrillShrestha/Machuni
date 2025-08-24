@@ -3,7 +3,8 @@ from flask_cors import CORS
 from custom_type import *
 import json
 from request_parser import parse_request
-from query import ask_question, generate_answer, generate_answer_with_context
+from query import ask_question, generate_answer, generate_answer_with_context, get_starter_questions
+import re
 
 app = Flask(__name__)
 app.config['WTF_CSRF_ENABLED'] = False
@@ -15,15 +16,16 @@ def chat(data: ChatRequest):
     question = data.question
 
     context = ask_question(question)
-    answer = generate_answer_with_context(question, context, "English", {"status": data.status, "interests": data.interests, "country": data.country, "state": data.state})
+    answer = generate_answer_with_context(question, context, data.language_preferance, {"status": data.status, "interests": data.interests, "country": data.country, "state": data.state})
     chat_response = ChatResponse(answer)
     return chat_response.to_dict()
 
 @app.route('/queries', methods=['POST'])
 @parse_request(PersonalizedQueryRequest)
 def queries(data: PersonalizedQueryRequest):
-    queries = ["What is an F1 visa?", "How to apply for a Green Card?"]
-    return PersonalizedQueryResponse(queries).to_dict()
+    queries = get_starter_questions(data.status, data.country, data.state, data.language_preferance)
+    json_list = re.split(r'\||\n', queries)
+    return PersonalizedQueryResponse(json_list).to_dict()
 
 @app.route('/recommendations', methods=['POST'])
 @parse_request(RecommendationRequest)

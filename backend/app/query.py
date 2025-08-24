@@ -129,7 +129,7 @@ def generate_answer_with_context(question, context, language="English", filters=
         response = requests.post(
             "http://localhost:11434/api/chat",
             json={
-                "model": "mistral",
+                "model": "gemma3",
                 "stream": False,
                 "messages": [
                     {"role": "system", "content": system_prompt},
@@ -142,7 +142,6 @@ def generate_answer_with_context(question, context, language="English", filters=
     except requests.exceptions.RequestException as e:
         print(f"An API error occurred: {e}")
         return "<p>Sorry, I am having trouble connecting to the service.</p>"
-
 
 # 4. Use Ollama LLM to generate answer
 def generate_answer(context, question):
@@ -159,13 +158,84 @@ def generate_answer(context, question):
     response = requests.post(
         "http://localhost:11434/api/generate",
         json={
-            "model": "mistral",  
+            "model": "gemma3",  
             "prompt": prompt,
-            "stream": False
+            "stream": True
         }
     )
     response.raise_for_status()
     return response.json()["response"]
+
+
+def get_starter_questions(status: str, country: str, state: str, language: str = "English"):
+    """
+    Generates the top 5 most frequently asked questions from a knowledge base,
+    respecting filters and language, and returns them as a JSON list.
+    """
+
+    context = ask_question(f"Give me top five questions for a user with {status} status living in country: {country} and state: {state}")
+    system_prompt = """
+    [PERSONA]
+    Your purpose is to generate top 5 relavent question for the user based on their profile. The user profile includes their current visa status , country and state of residence. Try do be diverse with the questions you generate.
+    
+
+    [CORE RULES]
+    1.  **Strictly Grounded:** You MUST base your entire answer on the information found within the <CONTEXT>.
+    2.  **User Information:** You MUST use the user information provided <STATUS>, <COUNTRY>, <STATE> and <LANGUAGE> tags to generate the questions.
+    3.  **Maximum character limit:** Each question should be concise and to the point NOT exceeding 70 characters.
+    4.  **Format:** Each question should be separated by a pipe (|) character. Do not number the questions or use bullet points.
+
+    [OUTPUT FORMATTING]
+    Just output the questions, DO NOT add context when responding. Each question should be separated by a pipe (|) character. Do not include question number or new line characters. Each question should be concise and to the point NOT exceeding 70 characters.
+
+    [EXAMPLE RESPONSE]
+    What is an F1 visa?|How to apply for a Green Card?|What are the requirements for asylum?|How to renew a work permit?|What are the steps to citizenship?
+
+    """
+
+    user_message = f"""
+    Here is the information for the user's request. Please follow all rules in your system prompt, especially the HTML formatting rules.
+    
+    <CONTEXT>
+    {context}
+    </CONTEXT>
+
+    <STATUS>
+    {status}
+    </STATUS>
+
+    <COUNTRY>
+    {country}
+    </COUNTRY>
+
+    <STATE>
+    {state}
+    </STATE>
+
+    <LANGUAGE>
+    {language}
+    </LANGUAGE>
+    """
+
+    try:
+        response = requests.post(
+            "http://localhost:11434/api/chat",
+            json={
+                "model": "gemma3",
+                "stream": False,
+                "messages": [
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_message}
+                ]
+            }
+        )
+        response.raise_for_status()
+        print(response.json()["message"]["content"])  # Debugging line
+        return response.json()["message"]["content"]
+    except requests.exceptions.RequestException as e:
+        print(f"An API error occurred: {e}")
+        return "<p>Sorry, I am having trouble connecting to the service.</p>"
+
 
 # 5. CLI
 if __name__ == "__main__":
