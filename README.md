@@ -3,6 +3,10 @@
 
 MaChuNi is a web app designed to help students and newcomers from Nepal adapt smoothly to life far away from home. Moving to a new country can feel overwhelming. MaChuNi aims to make the transition smoother by providing reliable information and fostering cultural connections.
 
+## 👣 Walkthrough
+
+https://github.com/user-attachments/assets/03c532ad-bc33-41bc-a271-019fd1b6e880
+
 ## 🔑 Key Features
 - **🤖 AI Chatbot for Newcomers**: Ask questions like “How do I open a bank account?” or “What is CPT/OPT?” and get clear, AI-powered answers tailored for Nepali students in the U.S.
 - **🎉 Personalized Event Recommendations**: Discover nearby events, cultural activities, and community gatherings recommended based on your interests.
