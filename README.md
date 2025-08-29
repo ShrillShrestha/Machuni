@@ -53,7 +53,7 @@ https://github.com/user-attachments/assets/ca2fcf50-2ed7-403f-bca7-ead881a0ca29
   - Run `flask run` to run your backend server
 
 ## ✨ Contributors 
-Shoutout goes to these wonderful people:
+Shoutout goes to these awesome people:
 - [Anuj Bhattarai](https://github.com/akin-bh) - Frontend + Presentation
 - [Mandira Ghimire](https://github.com/mandiragh) - ML System
 - [Shrill Shrestha](https://github.com/ShrillShrestha) - Backend Dev
